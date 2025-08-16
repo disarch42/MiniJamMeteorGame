@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public List<Meteor> meteors;
 
+    [HideInInspector] public List<Collectible> availableCollectibles;
+    [HideInInspector] public List<Collectible> cachedCollectibles;
+
     [Header("meteor collision")]
     public Bounds rectBounds;
     [Range(0.0f, 2.0f)]
@@ -31,9 +34,30 @@ public class GameManager : MonoBehaviour
     private Vector2 _mouseScreenPos;
     private Vector2 _mouseWorldPos;
     private float _chargeTime = -1;
+
+    public GameObject collectiblePrefab;
     //setting chargetime to -1 if we are not charging 
     private bool charging { get { return _chargeTime >= 0; } }
-
+    private void CreateCollectibles(Vector2 point, float randomRange, int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            Collectible c;
+            if (cachedCollectibles.Count > 0) 
+            { 
+                c = cachedCollectibles[0]; 
+                cachedCollectibles.RemoveAt(0); 
+            }
+            else
+            {
+                c = GameObject.Instantiate(collectiblePrefab).GetComponent<Collectible>();
+            }
+            c.gameObject.SetActive(true);
+            c.transform.position = point + Random.insideUnitCircle*Random.Range(0.0f,randomRange);
+            c.InitializeCollectible(5);
+            availableCollectibles.Add(c);
+        }
+    }
     private void Awake()
     {
         _current = this;
@@ -128,6 +152,10 @@ public class GameManager : MonoBehaviour
 
                         meteorA.transform.position = new Vector3(meteorApos.x, meteorApos.y, meteorA.transform.position.z);
                         meteorB.transform.position = new Vector3(meteorBpos.x, meteorBpos.y, meteorB.transform.position.z);
+
+
+                        CreateCollectibles(meteorA.transform.position, meteorA.radius, 5);
+                        CreateCollectibles(meteorB.transform.position, meteorB.radius, 5);
                     }
                 }
             }
@@ -172,6 +200,16 @@ public class GameManager : MonoBehaviour
                             }
                         }
                     }
+
+                    for (int i = availableCollectibles.Count - 1; i >= 0; i--)
+                    {
+                        if (Vector2.Distance(availableCollectibles[i].transform.position, _mouseWorldPos) < currentRadius)
+                        {
+                            availableCollectibles[i].OnCollect(_mouseWorldPos);
+                            availableCollectibles.RemoveAt(i);
+                        }
+                    }
+
                     cursorSliderGameObject.SetActive(false);
                     _chargeTime = -1;
                 }
