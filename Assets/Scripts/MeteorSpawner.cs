@@ -18,7 +18,7 @@ public class MeteorSpawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(2f);
             SpawnMeteor();
         }
     }
@@ -28,6 +28,7 @@ public class MeteorSpawner : MonoBehaviour
         Vector3 spawnPos = GetMeteorSpawnPos();
         Vector3 spawnRot = GetMeteorSpawnRot(spawnPos);
         Meteor meteorInstance = Instantiate(meteorPrefab, spawnRot, Quaternion.Euler(spawnRot));
+        Debug.Log(Random.Range(1, Stats.meteorRadius));
         meteorInstance.radius = Random.Range(1,Stats.meteorRadius);
     }
 
