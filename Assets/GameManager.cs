@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
     public float blackHoleFreezeTime;
     private float _chargeTime = -1;
     private float _lastFrameTime = -1;
+    public float blackHoleMinSpeed;
+
 
     //set chargetime to -1 if we are not charging 
     private bool charging { get { return _chargeTime >= 0; } }
@@ -230,7 +232,7 @@ public class GameManager : MonoBehaviour
                             if (dist < currentRadius)
                             {
                                 Vector2 newDir = distanceVector.normalized;
-                                meteors[i].ChangeVelocity(blackHoleFreezeTime, newDir * meteors[i].velocity.magnitude);
+                                meteors[i].ChangeVelocity(blackHoleFreezeTime, newDir * Mathf.Max(meteors[i].velocity.magnitude, blackHoleMinSpeed));
                             }
                         }
                     }

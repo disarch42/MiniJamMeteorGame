@@ -901,7 +901,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3796355500846838553, guid: b4c07705a6ac0564b98c2a91c805113a, type: 3}
       propertyPath: velocity.x
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3796355500846838553, guid: b4c07705a6ac0564b98c2a91c805113a, type: 3}
       propertyPath: velocity.y
@@ -1051,6 +1051,7 @@ MonoBehaviour:
   minChargeTime: 0.06
   maxChargeTime: 0.13
   blackHoleFreezeTime: 0.25
+  blackHoleMinSpeed: 5
   collectibleMouseCollectRadius: 0.25
   chargingTimeScale: 0.5
 --- !u!4 &1974666772
@@ -1194,6 +1195,10 @@ PrefabInstance:
     - target: {fileID: 3460394249042430808, guid: b4c07705a6ac0564b98c2a91c805113a, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3796355500846838553, guid: b4c07705a6ac0564b98c2a91c805113a, type: 3}
+      propertyPath: velocity.x
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7820995968658699559, guid: b4c07705a6ac0564b98c2a91c805113a, type: 3}
       propertyPath: m_Name
