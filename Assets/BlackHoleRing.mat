@@ -61,7 +61,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _color: {r: 1, g: 1, b: 1, a: 1}
-    - glowColor: {r: 1, g: 0, b: 0.78257036, a: 1}
+    - glowColor: {r: 0.5296289, g: 0, b: 2.7954402, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &4030693329051853875

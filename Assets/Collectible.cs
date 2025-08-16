@@ -13,12 +13,13 @@ public class Collectible : MonoBehaviour
     }
 
     //removal from availables is managed in gamemanager, adding to cache is managed from this script
-    public void OnCollect(Vector2 point)
+    public void OnCollect(Vector2 point, float wait)
     {
-        StartCoroutine(collectAnim(_returnTime, transform.position, point));
+        StartCoroutine(collectAnim(_returnTime, transform.position, point,wait));
     }
-    private IEnumerator collectAnim(float duration, Vector2 startPoint, Vector2 endPoint)
+    private IEnumerator collectAnim(float duration, Vector2 startPoint, Vector2 endPoint, float wait)
     {
+        yield return new WaitForSeconds(wait);
         float elapsed=0;
         while (elapsed < duration)
         {

@@ -279,7 +279,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 0.25, y: 0.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &308428068
 MonoBehaviour:
@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 456930783}
   - component: {fileID: 456930782}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: postprocess
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -449,7 +449,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.07948974, g: 0.0760057, b: 0.13207549, a: 0}
+  m_BackGroundColor: {r: 0.15234475, g: 0.14969736, b: 0.18238991, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1033,6 +1033,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meteors: []
+  availableCollectibles: []
+  cachedCollectibles: []
   rectBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 8.888889, y: 5, z: 0}
@@ -1042,11 +1044,15 @@ MonoBehaviour:
   cursorSliderGameObject: {fileID: 204038145}
   cursorSlider: {fileID: 96010395}
   cursorSliderFillImage: {fileID: 913768267}
+  collectiblePrefab: {fileID: 764441470037380221, guid: f7d4d84706fedda44b97078d267d5a3a, type: 3}
+  shockwavePrefab: {fileID: 1836986770408974982, guid: d5312f9dcef4696429a78145b51d6b8c, type: 3}
   maxBlackHoleRadius: 1.5
   minBlackHoleRadius: 0.5
   minChargeTime: 0.06
   maxChargeTime: 0.13
-  freezeTime: 0.11
+  blackHoleFreezeTime: 0.25
+  collectibleMouseCollectRadius: 0.25
+  chargingTimeScale: 0.5
 --- !u!4 &1974666772
 Transform:
   m_ObjectHideFlags: 0
@@ -1183,6 +1189,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 605278836236469575, guid: b4c07705a6ac0564b98c2a91c805113a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3460394249042430808, guid: b4c07705a6ac0564b98c2a91c805113a, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7820995968658699559, guid: b4c07705a6ac0564b98c2a91c805113a, type: 3}

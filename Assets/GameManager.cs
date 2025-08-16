@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
+
     static private GameManager _current;
     static public GameManager GetInstance() { return _current; }
 
@@ -16,28 +17,40 @@ public class GameManager : MonoBehaviour
     [Range(0.0f, 2.0f)]
     public float collisionVelocityMult;
 
-    [Header("black hole")]
+    [Header("references")]
     //taking references like this might be messy
     public Image cursorImage;
     public Transform cursorCanvas;
     public GameObject cursorSliderGameObject;
     public Slider cursorSlider;
     public Image cursorSliderFillImage;
+    public GameObject collectiblePrefab;
+    public GameObject shockwavePrefab;
 
+
+    [Header("black hole")]
     public float maxBlackHoleRadius;
     public float minBlackHoleRadius;
     public float minChargeTime;
     public float maxChargeTime;
-    public float freezeTime;
+    public float blackHoleFreezeTime;
+    private float _chargeTime = -1;
+    private float _lastFrameTime = -1;
+
+    //set chargetime to -1 if we are not charging 
+    private bool charging { get { return _chargeTime >= 0; } }
+
+
+    [Header("other")]
+    public float collectibleMouseCollectRadius = 0.2f;
+    //!!! if something else changes timescale will need to rewrite this
+    public float chargingTimeScale = 0.5f;
 
     private bool _holdingM1;
     private Vector2 _mouseScreenPos;
     private Vector2 _mouseWorldPos;
-    private float _chargeTime = -1;
 
-    public GameObject collectiblePrefab;
-    //setting chargetime to -1 if we are not charging 
-    private bool charging { get { return _chargeTime >= 0; } }
+
     private void CreateCollectibles(Vector2 point, float randomRange, int amount)
     {
         for (int i = 0; i < amount; i++)
@@ -57,6 +70,10 @@ public class GameManager : MonoBehaviour
             c.InitializeCollectible(5);
             availableCollectibles.Add(c);
         }
+    }
+    private void CreateShockwave(Vector2 pos, float r)
+    {
+        Instantiate(shockwavePrefab).GetComponent<Shockwave>().Initialize(pos, blackHoleFreezeTime*1.25f, r);
     }
     private void Awake()
     {
@@ -89,11 +106,17 @@ public class GameManager : MonoBehaviour
         cursorCanvas.position = _mouseWorldPos;
         if (charging)
         {
-            float currentRadius = Mathf.Lerp(minBlackHoleRadius, maxBlackHoleRadius, Mathf.InverseLerp(0, maxChargeTime, _chargeTime));
+            float updChargeTime = _chargeTime + (Time.time - _lastFrameTime);
+            float t = Mathf.InverseLerp(0, maxChargeTime, updChargeTime);
+            cursorSlider.value = t;
+            cursorSliderFillImage.color = updChargeTime > minChargeTime ? Color.blueViolet : Color.indianRed;
+
+
+            float currentRadius = Mathf.Lerp(minBlackHoleRadius, maxBlackHoleRadius, Mathf.InverseLerp(0, maxChargeTime, updChargeTime));
             //arrow preview
             for (int i = 0; i < meteors.Count; i++)
             {
-                Vector2 distanceVector = _mouseWorldPos - (Vector2)meteors[i].transform.position;
+                Vector2 distanceVector = _mouseWorldPos - (Vector2)meteors[i].spriteRendererTransform.position;
                 float dist = distanceVector.magnitude - meteors[i].radius;
                 meteors[i].arrowTransform.gameObject.SetActive(dist < currentRadius);
 
@@ -110,6 +133,7 @@ public class GameManager : MonoBehaviour
     {
         CheckMeteorCollisions();
         BlackHoleUpdate();
+        _lastFrameTime = Time.time;
         void CheckMeteorCollisions()
         {
             for (int i = 0; i < meteors.Count; i++)
@@ -117,7 +141,7 @@ public class GameManager : MonoBehaviour
                 for (int j = i + 1; j < meteors.Count; j++)
                 {
                     float dist = Vector2.Distance(meteors[i].transform.position, meteors[j].transform.position);
-                    if (dist < meteors[i].radius + meteors[j].radius)
+                    if (dist < (meteors[i].radius + meteors[j].radius))
                     {
                         Meteor meteorA = meteors[i];
                         Meteor meteorB = meteors[j];
@@ -167,22 +191,32 @@ public class GameManager : MonoBehaviour
             {
                 _chargeTime = 0;
                 cursorSliderGameObject.SetActive(true);
-                foreach (Meteor meteor in meteors)
+            }
+
+            //collect collectibles with mouse
+            for (int i = availableCollectibles.Count - 1; i >= 0; i--)
+            {
+                if (Vector2.Distance(availableCollectibles[i].transform.position, _mouseWorldPos) < collectibleMouseCollectRadius)
                 {
-                    meteor.arrowTransform.gameObject.SetActive(false);
+                    availableCollectibles[i].OnCollect(_mouseWorldPos, 0.0f);
+                    availableCollectibles.RemoveAt(i);
                 }
             }
 
+
             if (charging)
             {
+
                 _chargeTime += Time.fixedDeltaTime;
                 float t = Mathf.InverseLerp(0, maxChargeTime, _chargeTime);
-                cursorSliderFillImage.color = _chargeTime > minChargeTime ? Color.blueViolet : Color.indianRed;
-                cursorSlider.value = t;
+                Time.timeScale = Mathf.Lerp(1.0f, chargingTimeScale, t);
                 float currentRadius = Mathf.Lerp(minBlackHoleRadius, maxBlackHoleRadius, t);
                 //end charge
                 if (!_holdingM1)
                 {
+                    Time.timeScale = 1.0f;
+
+                    CreateShockwave(_mouseWorldPos, currentRadius);
                     foreach (Meteor meteor in meteors)
                     {
                         meteor.arrowTransform.gameObject.SetActive(false);
@@ -196,7 +230,7 @@ public class GameManager : MonoBehaviour
                             if (dist < currentRadius)
                             {
                                 Vector2 newDir = distanceVector.normalized;
-                                meteors[i].ChangeVelocity(freezeTime, newDir * meteors[i].velocity.magnitude);
+                                meteors[i].ChangeVelocity(blackHoleFreezeTime, newDir * meteors[i].velocity.magnitude);
                             }
                         }
                     }
@@ -205,7 +239,7 @@ public class GameManager : MonoBehaviour
                     {
                         if (Vector2.Distance(availableCollectibles[i].transform.position, _mouseWorldPos) < currentRadius)
                         {
-                            availableCollectibles[i].OnCollect(_mouseWorldPos);
+                            availableCollectibles[i].OnCollect(_mouseWorldPos, blackHoleFreezeTime);
                             availableCollectibles.RemoveAt(i);
                         }
                     }
