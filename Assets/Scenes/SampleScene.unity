@@ -1046,7 +1046,7 @@ MonoBehaviour:
   minBlackHoleRadius: 0.5
   minChargeTime: 0.06
   maxChargeTime: 0.13
-  freezeTime: 0.47
+  freezeTime: 0.11
 --- !u!4 &1974666772
 Transform:
   m_ObjectHideFlags: 0
