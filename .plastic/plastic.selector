@@ -1,0 +1,4 @@
+repository "MiniJamMeteorGame/MiniJamMeteorGame@18968315379759@cloud"
+  path "/"
+    br "/main"
+    co "/main"
