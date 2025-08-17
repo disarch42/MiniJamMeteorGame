@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
@@ -27,7 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject collectiblePrefab;
     public GameObject shockwavePrefab;
     public MeteorExplosionParticle meteorExplosionParticle;
-
+    public Volume postProcessVolume;
 
     [Header("black hole")]
     public float maxBlackHoleRadius;
@@ -38,11 +40,20 @@ public class GameManager : MonoBehaviour
     private float _chargeTime = -1;
     private float _lastFrameTime = -1;
     public float blackHoleMinSpeed;
-
-
+    
+    public BlackHoleRing blackHolePreviewRing;
     //set chargetime to -1 if we are not charging 
     private bool charging { get { return _chargeTime >= 0; } }
 
+    [Header("post process")]
+    public float paniniIdle;
+    public float paniniCharged;
+    public float lensDistortionIdle;
+    public float lensDistortionCharged;
+    public float chromaticAberrIdle;
+    public float chromaticAberCharged;
+    public float afterEffectsTime;
+    private float _afterEffectsTimer;
 
     [Header("other")]
     public float collectibleMouseCollectRadius = 0.2f;
@@ -62,7 +73,6 @@ public class GameManager : MonoBehaviour
         collectibleMouseCollectRadius = StatsManager.instance.mouseCollectRadius;
         chargingTimeScale = StatsManager.instance.chargingTimeScale;        
     }
-
     public void CreateCollectibles(Vector2 point, float randomRange, int amount)
     {
         for (int i = 0; i < amount; i++)
@@ -99,6 +109,7 @@ public class GameManager : MonoBehaviour
     {
         SetValuesFromStats();
         Cursor.visible = false;
+        blackHolePreviewRing.gameObject.SetActive(false);
 
         InputSystem.GetCurrent().actions.Player.MousePosition.performed += ctx =>
         {
@@ -127,8 +138,9 @@ public class GameManager : MonoBehaviour
             float t = Mathf.InverseLerp(0, maxChargeTime, updChargeTime);
             cursorSlider.value = t;
             cursorSliderFillImage.color = updChargeTime > minChargeTime ? Color.blueViolet : Color.indianRed;
-
-
+            blackHolePreviewRing.SetRadius(Mathf.Lerp(minBlackHoleRadius, maxBlackHoleRadius, t));
+            blackHolePreviewRing.transform.position = _mouseWorldPos;
+            SetPostProcesses(t/1.5f);
             float currentRadius = Mathf.Lerp(minBlackHoleRadius, maxBlackHoleRadius, Mathf.InverseLerp(0, maxChargeTime, updChargeTime));
             //arrow preview
             for (int i = 0; i < meteors.Count; i++)
@@ -144,6 +156,26 @@ public class GameManager : MonoBehaviour
 
                 meteors[i].arrowTransform.position = meteors[i].spriteRendererTransform.position + (Vector3)(newDir.normalized * meteors[i].radius);
             }
+        }
+        else if(_afterEffectsTimer>0)
+        {
+            _afterEffectsTimer -= Time.deltaTime;
+            SetPostProcesses(_afterEffectsTimer / afterEffectsTime);
+        }
+    }
+    public void SetPostProcesses(float t)
+    {
+        if (postProcessVolume.profile.TryGet<PaniniProjection>(out PaniniProjection pan))
+        {
+            pan.distance.Override(Mathf.Lerp(paniniIdle, paniniCharged, t));
+        }
+        if (postProcessVolume.profile.TryGet<LensDistortion>(out LensDistortion lens))
+        {
+            lens.intensity.Override(Mathf.Lerp(paniniIdle, paniniCharged, t));
+        }
+        if (postProcessVolume.profile.TryGet<ChromaticAberration>(out ChromaticAberration aber))
+        {
+            aber.intensity.Override(Mathf.Lerp(chromaticAberrIdle, chromaticAberCharged, t));
         }
     }
     private void FixedUpdate()
@@ -193,11 +225,16 @@ public class GameManager : MonoBehaviour
 
                         meteorA.transform.position = new Vector3(meteorApos.x, meteorApos.y, meteorA.transform.position.z);
                         meteorB.transform.position = new Vector3(meteorBpos.x, meteorBpos.y, meteorB.transform.position.z);
-                        
+
                         float meteorADmg = meteorA.damage;
                         float meteorBDmg = meteorB.damage;
+
                         meteorA.DamageMeteor(meteorBDmg);
+
+
                         meteorB.DamageMeteor(meteorADmg);
+
+                        ScreenShake.instance.AddScreenShake(0.1f, 0.15f);
                     }
                 }
             }
@@ -208,6 +245,7 @@ public class GameManager : MonoBehaviour
             if (!charging && _holdingM1)
             {
                 _chargeTime = 0;
+                blackHolePreviewRing.gameObject.SetActive(true);
                 cursorSliderGameObject.SetActive(true);
             }
 
@@ -226,15 +264,19 @@ public class GameManager : MonoBehaviour
 
             if (charging)
             {
-
                 _chargeTime += Time.fixedDeltaTime;
                 float t = Mathf.InverseLerp(0, maxChargeTime, _chargeTime);
                 Time.timeScale = Mathf.Lerp(1.0f, chargingTimeScale, t);
                 float currentRadius = Mathf.Lerp(minBlackHoleRadius, maxBlackHoleRadius, t);
+                blackHolePreviewRing.SetRadius(currentRadius);
+                blackHolePreviewRing.transform.position = _mouseWorldPos;
                 //end charge
                 if (!_holdingM1)
                 {
+                    _afterEffectsTimer = afterEffectsTime;
                     Time.timeScale = 1.0f;
+                    blackHolePreviewRing.gameObject.SetActive(false);
+                    ScreenShake.instance.AddScreenShake(0.1f, 0.08f);
 
                     CreateShockwave(_mouseWorldPos, currentRadius);
                     foreach (Meteor meteor in meteors)
@@ -263,7 +305,6 @@ public class GameManager : MonoBehaviour
                             availableCollectibles.RemoveAt(i);
                         }
                     }
-
                     cursorSliderGameObject.SetActive(false);
                     _chargeTime = -1;
                 }

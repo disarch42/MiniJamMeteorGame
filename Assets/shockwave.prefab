@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5555819422952134197}
   - component: {fileID: 2076276566494224792}
+  - component: {fileID: 1568179956149114406}
   m_Layer: 0
   m_Name: shockwave
   m_TagString: Untagged
@@ -89,6 +90,18 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   blackHole: {fileID: 9193322161271759979}
+--- !u!114 &1568179956149114406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836986770408974982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c08150d65f458d2458441d8c18347dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   ring: {fileID: 329890749308905186}
 --- !u!1 &3534705791478669469
 GameObject:
@@ -204,7 +217,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5555819422952134197}

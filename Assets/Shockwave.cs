@@ -8,13 +8,11 @@ public class Shockwave : MonoBehaviour
     private float _ringAnimationTime;
     private float _ringAnimationExpansion;
     public AnimationCurve ringAnimationCurve;
-
+    private BlackHoleRing _blackHoleRing;
     public SpriteRenderer blackHole;
-    public SpriteRenderer ring;
-    
     private void Start()
     {
-        _ringMat =  ring.material;
+        _blackHoleRing = GetComponent<BlackHoleRing>();
     }
     public void Initialize(Vector2 pos, float time, float blackHoleRadius)
     {
@@ -29,8 +27,7 @@ public class Shockwave : MonoBehaviour
 
         float r = ringAnimationCurve.Evaluate(_ringAnimationTimer / _ringAnimationTime);
         r = Mathf.Max(0.01f, r);
-        ring.transform.localScale = r * _ringAnimationExpansion * Vector3.one;
-        _ringMat.SetFloat("_radius", r);
+        _blackHoleRing.SetRadius(r * _ringAnimationExpansion / 2);
 
         blackHole.transform.localScale = r * Vector3.one;
 

@@ -6,6 +6,7 @@ public class MeteorExplosionParticle : MonoBehaviour
     private ParticleSystem _particleSystem;
     public int particleAmount = 120;
     public float speed;
+    public float initialSpeedMult;
     
     /*
     public bool emit;
@@ -35,10 +36,6 @@ public class MeteorExplosionParticle : MonoBehaviour
         _particleSystem.Emit(a, particleAmount);
         ParticleSystem.Particle[] particles = new ParticleSystem.Particle[_particleSystem.main.maxParticles];
         int count = _particleSystem.GetParticles(particles);
-        /*
-        for (int i = count - 1; i >= particleAmount; i--)
-        {
-        */
         for (int i = (count-particleAmount); i < count; i++)
         {
             Vector2 r = Random.insideUnitCircle;
@@ -46,7 +43,7 @@ public class MeteorExplosionParticle : MonoBehaviour
             particles[i].position = transform.position + (Vector3)localPos;
             float u = Mathf.Clamp01( (r.x + 1.0f) /2.0f);
             float v = Mathf.Clamp01( (r.y + 1.0f) / 2.0f);
-            particles[i].velocity = new Vector3(r.x, r.y, 0);
+            particles[i].velocity = new Vector3(r.x, r.y, 0)*speed + (Vector3)(initialSpeed * initialSpeedMult);
             particles[i].startColor = new Color(u, v, 0, 1);
         }
         //velocityOverLifetimeModule.speedModifierMultiplier

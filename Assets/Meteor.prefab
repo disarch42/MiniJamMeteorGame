@@ -205,6 +205,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   hpColorGlow: 4
   kineticEnergy: 0
+  bounceWalls: 1
 --- !u!1 &8846698758973674278
 GameObject:
   m_ObjectHideFlags: 0

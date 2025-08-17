@@ -34,7 +34,10 @@ public class Meteor : MonoBehaviour
     private Vector3 _prevPos;
     //if positive freeze
     private float _freezeTimer=-1;
+    public const float maxSpeed = 30.0f;
+    public bool bounceWalls = true;
 
+    private bool _isDestroyed = false;
     // since meteors will probably be cached having a function that resets all values will be nice
     public void InitializeMeteor(float _radius, float _mass, float _health, int _currencyDrop, float _damage, Vector2 _initialVelocity)
     {
@@ -59,27 +62,47 @@ public class Meteor : MonoBehaviour
         //ideally we only create meteors from meteorspawner so we dont want this anymore.
         //removing this will cause issues with meteors that are not created with spawner.
         //InitializeMeteor(radius, maxHealth, mass, currencyDrop, damage, velocity);
-        GameManager.GetInstance().meteors.Add(this);
         _spriteRendMaterial = spriteRendererTransform.GetComponent<SpriteRenderer>().material;
         _spriteRendMaterial.SetColor("_EmissionColor", hpColor.Evaluate(health/maxHealth) * hpColorGlow);
     }
-    private void OnDestroy()
+    private void OnEnable()
     {
-        GameManager.GetInstance().meteors.Remove(this);
+        if (!GameManager.GetInstance().meteors.Contains(this))
+        {
+            GameManager.GetInstance().meteors.Add(this);
+        }
+
+    }
+    private void OnDisable()
+    {
+        RemoveMeteor();
+    }
+    void RemoveMeteor()
+    {
+        _isDestroyed = true;
+        if (GameManager.GetInstance().meteors.Contains(this))
+        {
+            GameManager.GetInstance().meteors.Remove(this);
+        }
     }
     private void Update()
     {
+        if( _isDestroyed) { return; }
         spriteRendererTransform.position = Vector3.Lerp(_prevPos, transform.position, (Time.time-_lastFrameTime) / Time.fixedDeltaTime);
     }
     public void DamageMeteor(float dmg)
     {
+        if (_isDestroyed) { return; }
+
         health -= dmg;
         int dropAmount = Mathf.Min((int)Mathf.Ceil( _totalCurrencyDrop * (dmg/maxHealth)*0.2f ), _leftDamageCurrency);
         _leftDamageCurrency -= dropAmount;
         GameManager.GetInstance().CreateCollectibles(transform.position, radius, dropAmount);
 
-        _spriteRendMaterial.SetColor("_EmissionColor", hpColor.Evaluate(health/maxHealth)* hpColorGlow);
-
+        if (_spriteRendMaterial != null)
+        {
+            _spriteRendMaterial.SetColor("_EmissionColor", hpColor.Evaluate(health / maxHealth) * hpColorGlow);
+        }
         if (health < 0)
         {
             //die
@@ -95,6 +118,8 @@ public class Meteor : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (_isDestroyed) { return; }
+
         _lastFrameTime = Time.time;
         _prevPos = transform.position;
 
@@ -103,17 +128,24 @@ public class Meteor : MonoBehaviour
         void ApplyMovement()
         {
             if (_freezeTimer > 0) { _freezeTimer -= Time.fixedDeltaTime; return; }
-
-
-            if ((transform.position.x + radius > GameManager.GetInstance().rectBounds.max.x && velocity.x > 0) ||
-                (transform.position.x - radius < GameManager.GetInstance().rectBounds.min.x && velocity.x < 0))
+            
+            if (velocity.magnitude > maxSpeed)
             {
-                velocity.x *= -1;
+                velocity = velocity.normalized * maxSpeed;
             }
-            if ((transform.position.y + radius > GameManager.GetInstance().rectBounds.max.y && velocity.y > 0) ||
-                (transform.position.y - radius < GameManager.GetInstance().rectBounds.min.y && velocity.y < 0))
+
+            if (bounceWalls)
             {
-                velocity.y *= -1;
+                if ((transform.position.x + radius > GameManager.GetInstance().rectBounds.max.x && velocity.x > 0) ||
+                    (transform.position.x - radius < GameManager.GetInstance().rectBounds.min.x && velocity.x < 0))
+                {
+                    velocity.x *= -1;
+                }
+                if ((transform.position.y + radius > GameManager.GetInstance().rectBounds.max.y && velocity.y > 0) ||
+                    (transform.position.y - radius < GameManager.GetInstance().rectBounds.min.y && velocity.y < 0))
+                {
+                    velocity.y *= -1;
+                }
             }
 
             transform.position = transform.position + (Vector3)(velocity * Time.fixedDeltaTime);
