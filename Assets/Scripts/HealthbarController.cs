@@ -3,7 +3,22 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class HealthbarController : MonoBehaviour
 {
-  
+    public static HealthbarController instance;
+
+    private void Awake()
+    {
+
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
     public Image healthBarImage; // Reference to the UI Image component for the health bar
     public float health = 100f;
     public float healthDrainRate = 5;

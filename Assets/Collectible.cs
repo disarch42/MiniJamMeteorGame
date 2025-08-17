@@ -28,7 +28,8 @@ public class Collectible : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
-        CurrencyManager.Instance.GainCurrency(0, (int)_money);
+        CurrencyManager.Instance.GainCurrency(0, (int)(_money*StatsManager.instance.moneyGainRate));
+        HealthbarController.instance.HealthChange(StatsManager.instance.pickupHealRate);
         gameObject.SetActive(false);
         GameManager.GetInstance().cachedCollectibles.Add(this);
         
