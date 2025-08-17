@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 public class CurrencyManager : MonoBehaviour
 {
@@ -24,7 +25,8 @@ public class CurrencyManager : MonoBehaviour
 
     public void GainCurrency(int type,int amount)
     {
-
+        CurrencyList[type] += amount;
+        PlayerHud.instance.GainCurrency(type, amount);
     }
 
 
@@ -33,6 +35,7 @@ public class CurrencyManager : MonoBehaviour
 
         CurrencyList[type] -= amount;
 
+        PlayerHud.instance.LooseCurrency(type, amount);
     }
 
     public bool CheckAffordable(int type,int amount)

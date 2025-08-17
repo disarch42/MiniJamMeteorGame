@@ -28,7 +28,9 @@ public class Collectible : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
+        CurrencyManager.Instance.GainCurrency(0, (int)_money);
         gameObject.SetActive(false);
         GameManager.GetInstance().cachedCollectibles.Add(this);
+        
     }
 }
