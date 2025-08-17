@@ -52,4 +52,5 @@ public class StatsManager:MonoBehaviour
     public float meteorSpawnChance = 0.01f;
     public float moneyGainRate = 1;
     public float pickupHealRate = 0;
+    public float decayIncreaseRate = 0.01f;
 }
