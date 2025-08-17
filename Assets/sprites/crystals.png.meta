@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 9192738f6de79904a8e93b0279461a32
+guid: c34b90ef84aa6a5488832e0336e5e967
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4613046951314388030
-    second: asteroid2crack1_0
+      213: 3840728530999671940
+    second: crystals_0
+  - first:
+      213: -3617158717195926810
+    second: crystals_1
+  - first:
+      213: -999122272813794138
+    second: crystals_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 300
+  spritePixelsToUnits: 150
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: asteroid2crack1_0
+      name: crystals_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 5
-        width: 278
-        height: 278
+        x: 0
+        y: 11
+        width: 19
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2cb05be1d3a2bffb0800000000000000
-      internalID: -4613046951314388030
+      spriteID: 48c71f8ff320d4530800000000000000
+      internalID: 3840728530999671940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crystals_1
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 41
+        width: 20
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e2445daf454dcdc0800000000000000
+      internalID: -3617158717195926810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crystals_2
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 0
+        width: 31
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6acb0c126976222f0800000000000000
+      internalID: -999122272813794138
       vertices: []
       indices: 
       edges: []
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      asteroid2crack1_0: -4613046951314388030
+      crystals_0: 3840728530999671940
+      crystals_1: -3617158717195926810
+      crystals_2: -999122272813794138
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

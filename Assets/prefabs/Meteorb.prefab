@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 605278836236469575}
   - component: {fileID: 3796355500846838553}
   m_Layer: 0
-  m_Name: Meteor
+  m_Name: Meteorb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,7 +205,9 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   hpColorGlow: 4
   kineticEnergy: 0
-  bounceWalls: 1
+  crack0Sprite: {fileID: 5739128012286437613, guid: a582a62bc87f82843b200d628d9fa2aa, type: 3}
+  crack1Sprite: {fileID: -4613046951314388030, guid: 9192738f6de79904a8e93b0279461a32, type: 3}
+  crack2Sprite: {fileID: -4717850875005977543, guid: 9899c08b4c058a74e846f2ce934b24b7, type: 3}
 --- !u!1 &8846698758973674278
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +264,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b0e160d0e3bdef94594124c5d353ce67, type: 2}
+  - {fileID: 2100000, guid: 50db8aac58fc3a5408473fdc17e70cff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -283,7 +285,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 15
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -7112363265595704721, guid: 4a8be0771b8c90645af4d3dab47de974, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

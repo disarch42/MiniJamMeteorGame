@@ -8,11 +8,15 @@ public class MeteorExplosionParticle : MonoBehaviour
     public float speed;
     public float initialSpeedMult;
     public float radius;
-    public int width;
-    public int height;
-    public int pixelPerUnit;
+    public int originalWidth;
+    public int originalHeight;
+    public float originalPixelPerUnit;
+    public int scaleDecrease;
+    private int width;
+    private int height;
+    public float pixelPerUnit;
     public Vector2 size;
-    
+    private float _pixelSize;
     public bool emit;
     private void Update()
     {
@@ -34,28 +38,30 @@ public class MeteorExplosionParticle : MonoBehaviour
     public void Explode(float radius, Vector2 position, Vector2 initialSpeed)
     {
         transform.position = position;
+        width = originalWidth / scaleDecrease;
+        height = originalHeight / scaleDecrease;
+        pixelPerUnit = originalPixelPerUnit / scaleDecrease;
+        _pixelSize = 1.0f / pixelPerUnit;
 
+        particleAmount = width * height;
         ParticleSystem.EmitParams a = new ParticleSystem.EmitParams();
         a.applyShapeToPosition = false;
+        a.startSize = _pixelSize;
         _particleSystem.Emit(a, particleAmount);
         ParticleSystem.Particle[] particles = new ParticleSystem.Particle[_particleSystem.main.maxParticles];
         int count = _particleSystem.GetParticles(particles);
         for (int i = (count-particleAmount); i < count; i++)
         {
-            //Vector2 r = Random.insideUnitCircle;
-            //Vector2 localPos = r * radius; 
-            size = new Vector2(width / pixelPerUnit, height / pixelPerUnit);
             int xp = i % width;
             int yp = i / height;
-
-            Vector2 localPos = new Vector2(xp/size.x, yp/size.y);
-            particles[i].position = transform.position + (Vector3)localPos;
-            float u = Mathf.Clamp01( (xp + 1.0f) / 2.0f);
-            float v = Mathf.Clamp01( (yp + 1.0f) / 2.0f);
-            particles[i].velocity = new Vector3(xp, yp, 0)*speed + (Vector3)(initialSpeed * initialSpeedMult);
+            float worldX = (xp - width * 0.5f) * _pixelSize;
+            float worldY = (yp - height * 0.5f) * _pixelSize;
+            particles[i].position = new Vector3(worldX, worldY, 0) + (Vector3)position;
+            float u = Mathf.Clamp01((float)xp/(width-1.0f) );
+            float v = Mathf.Clamp01((float)yp / (height - 1.0f));
+            particles[i].velocity = (particles[i].position-transform.position).normalized*speed + (Vector3)(initialSpeed * initialSpeedMult);
             particles[i].startColor = new Color(u, v, 0, 1);
         }
-        //velocityOverLifetimeModule.speedModifierMultiplier
         _particleSystem.SetParticles(particles, count);
     }
 }

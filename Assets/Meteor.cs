@@ -6,6 +6,7 @@ public class Meteor : MonoBehaviour
     public Transform arrowTransform;
     public Transform spriteRendererTransform;
     private Material _spriteRendMaterial;
+    private SpriteRenderer spriteRend;
     [Header("stats")]
     public Vector2 velocity;
     public float radius;
@@ -37,6 +38,10 @@ public class Meteor : MonoBehaviour
     public const float maxSpeed = 30.0f;
     private int _remainingBounces;
     private bool _isDestroyed = false;
+
+    public Sprite crack0Sprite;
+    public Sprite crack1Sprite;
+    public Sprite crack2Sprite;
     // since meteors will probably be cached having a function that resets all values will be nice
     public void InitializeMeteor(float _radius, int bounceAmount, float _mass, float _health, int _currencyDrop, float _damage, Vector2 _initialVelocity)
     {
@@ -62,7 +67,9 @@ public class Meteor : MonoBehaviour
         //ideally we only create meteors from meteorspawner so we dont want this anymore.
         //removing this will cause issues with meteors that are not created with spawner.
         //InitializeMeteor(radius, maxHealth, mass, currencyDrop, damage, velocity);
-        _spriteRendMaterial = spriteRendererTransform.GetComponent<SpriteRenderer>().material;
+        spriteRend = spriteRendererTransform.GetComponent<SpriteRenderer>();
+        spriteRend.sprite = crack0Sprite;
+        _spriteRendMaterial = spriteRend.material;
         _spriteRendMaterial.SetColor("_EmissionColor", hpColor.Evaluate(health/maxHealth) * hpColorGlow);
     }
     private void OnEnable()
@@ -98,6 +105,13 @@ public class Meteor : MonoBehaviour
         int dropAmount = Mathf.Min((int)Mathf.Ceil( _totalCurrencyDrop * (dmg/maxHealth)*0.2f ), _leftDamageCurrency);
         _leftDamageCurrency -= dropAmount;
         GameManager.GetInstance().CreateCollectibles(transform.position, radius, dropAmount);
+        float t = health / maxHealth;
+        if (spriteRend != null)
+        {
+            if (t < .33f) { spriteRend.sprite = crack2Sprite; }
+            else if (t < .66f) { spriteRend.sprite = crack1Sprite; }
+            else { spriteRend.sprite = crack0Sprite; }
+        }
 
         if (_spriteRendMaterial != null)
         {

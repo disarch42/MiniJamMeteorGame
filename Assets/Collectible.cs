@@ -1,11 +1,16 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
     private const float _returnTime=0.1f;
     private float _money;
-    
+    public List<Sprite> sprites = new List<Sprite>();
+    private void Start()
+    {
+        GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Count)];
+    }
     public void InitializeCollectible(float money) 
     { 
         StopAllCoroutines();

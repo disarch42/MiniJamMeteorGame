@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MeteorSpawner : MonoBehaviour
@@ -6,7 +6,7 @@ public class MeteorSpawner : MonoBehaviour
 
     public static MeteorSpawner instance;
 
-    public Meteor meteorPrefab;
+    public List<Meteor> meteorPrefabs;
 
     /*
     private void Start()
@@ -38,14 +38,14 @@ public class MeteorSpawner : MonoBehaviour
         bool fromTop = Random.Range(0, 2) == 0;
         bool fromRight = Random.Range(0, 2) == 0;
         Vector3 spawnPos = GetMeteorSpawnPos(r, fromRight, fromTop);
-        Meteor meteorInstance = Instantiate(meteorPrefab, spawnPos, Quaternion.identity);
+        Meteor meteorInstance = Instantiate(meteorPrefabs[Random.Range(0,meteorPrefabs.Count)], spawnPos, Quaternion.identity);
         meteorInstance.InitializeMeteor(r, 3, 5*r, 1.0f, 10, 0.2f, GetMeteorVelocity(5, fromRight, fromTop));
     }
     //meteor velocity direction doesnt need to point in as the levels have bounds
     public Vector2 GetMeteorVelocity(float mag, bool fromRight, bool fromTop)
     {
-        float xMult = fromRight ? 1 : -1;
-        float yMult = fromTop ? 1 : -1;
+        float xMult = fromRight ? -1 :1;
+        float yMult = fromTop ? -1 : 1;
         return new Vector2(Random.Range(0.0f,1.0f)*xMult, Random.Range(0.0f, 1.0f)*yMult).normalized * mag;
     }
     public Vector3 GetMeteorSpawnPos(float radius, bool fromRight, bool fromTop)

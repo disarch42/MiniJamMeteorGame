@@ -288,7 +288,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.03125
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4846,6 +4846,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 597e366a2c252c047a63cbf28ef7c2b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleAmount: 25
+  particleAmount: 400
   speed: 5
   initialSpeedMult: 0.2
+  radius: 1
+  originalWidth: 294
+  originalHeight: 282
+  originalPixelPerUnit: 300
+  scaleDecrease: 25
+  pixelPerUnit: 10.66667
+  size: {x: 0, y: 0}
+  emit: 1

@@ -131,18 +131,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MeteorExplosionParticle
       objectReference: {fileID: 0}
-    - target: {fileID: 7308661891302634946, guid: b48ec6e15a51bdc42a6df565fd48d00f, type: 3}
-      propertyPath: emit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308661891302634946, guid: b48ec6e15a51bdc42a6df565fd48d00f, type: 3}
-      propertyPath: radius
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308661891302634946, guid: b48ec6e15a51bdc42a6df565fd48d00f, type: 3}
-      propertyPath: particleAmount
-      value: 400
-      objectReference: {fileID: 0}
     - target: {fileID: 8578932621636123645, guid: b48ec6e15a51bdc42a6df565fd48d00f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.08
@@ -416,8 +404,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.0465107, y: -0.19446993, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -855,51 +843,6 @@ RectTransform:
   m_AnchoredPosition: {x: 106.5, y: -124.697815}
   m_SizeDelta: {x: 373, y: 294.08435}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &811397158
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 811397160}
-  - component: {fileID: 811397159}
-  m_Layer: 0
-  m_Name: MeteorSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &811397159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811397158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bc8f467f3576b143a9e4129b090d9ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meteorPrefab: {fileID: 3796355500846838553, guid: b4c07705a6ac0564b98c2a91c805113a, type: 3}
---- !u!4 &811397160
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811397158}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &880597194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1911,7 +1854,6 @@ SceneRoots:
   - {fileID: 1916797851}
   - {fileID: 1815159169}
   - {fileID: 182780927}
-  - {fileID: 811397160}
   - {fileID: 720060194}
   - {fileID: 994671670}
   - {fileID: 1123679746}
