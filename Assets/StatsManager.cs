@@ -36,7 +36,7 @@ public class StatsManager:MonoBehaviour
     public  float maxBlackholeChargeTime = 0.13f;
     public  float blackHoleFreezeTime = 0.25f;
 
-
+    public float startingHealth;
     public  float mouseCollectRadius = 0.25f;
 
     public  float chargingTimeScale = 0.5f;
