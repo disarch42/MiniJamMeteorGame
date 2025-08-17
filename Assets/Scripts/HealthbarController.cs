@@ -32,7 +32,7 @@ public class HealthbarController : MonoBehaviour
     private void FixedUpdate()
     {
         HealthChange(-Time.fixedDeltaTime * healthDrainRate);
-        healthDrainRate += 0.01f;
+        healthDrainRate += StatsManager.instance.decayIncreaseRate;
 
     }
 

@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: BlackHoleRadiusUpgrade
   m_EditorClassIdentifier: 
   icon: {fileID: -2532087816333192471, guid: 1f16ce0e6c3a10f44837128c41db1965, type: 3}
-  upgradeCosts: 050000000f00000019000000
+  upgradeCosts: 0000000000000000000000000000000000000000
   costType: 0
   upgradeDescription: "allah\u0131 yok eder"
   upgradeValues:
-  - 0.5
-  - 0.5
-  - 0.5
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
