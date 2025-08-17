@@ -2,6 +2,19 @@ using UnityEngine;
 
 public class MainMenuManager : MonoBehaviour
 {
+    public static MainMenuManager instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject); // Ensure only one instance exists
+        }
+    }
 
     private void Start()
     {
