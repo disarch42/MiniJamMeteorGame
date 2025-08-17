@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using System.Collections.Generic;
+[System.Serializable]
 public class Upgrade:ScriptableObject
 {
     public Sprite icon;
@@ -17,17 +18,10 @@ public class Upgrade:ScriptableObject
 
 }
 
-[System.Serializable]
-[CreateAssetMenu(fileName = "MeteorHPUpgrade", menuName = "Upgrades/MeteorHPUpgrade")]
-public class MeteorHPUpgrade : Upgrade
-{
-    public List<float> upgradeValues = new List<float>();
 
-    public override void OnUpgrade(int step)
-    {
-        base.OnUpgrade(step);
-        // Additional logic for MeteorHPUpgrade
-        Debug.Log("Meteor HP Upgrade applied!"+step);
-        // Increase the health of meteors or perform other upgrade-related actions
-    }
-}
+
+
+
+
+
+

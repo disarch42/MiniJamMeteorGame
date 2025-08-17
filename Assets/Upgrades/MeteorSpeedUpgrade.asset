@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 379d1b059c7aeed46858547ec0dcef04, type: 3}
-  m_Name: MeteorHPUpgrade
+  m_Script: {fileID: 11500000, guid: 9dc24c15151f3d440ad7950b862f4161, type: 3}
+  m_Name: MeteorSpeedUpgrade
   m_EditorClassIdentifier: 
-  icon: {fileID: -5482649810088149819, guid: 7a0613ea410657642812fbe5f53aa7c6, type: 3}
+  icon: {fileID: 0}
   upgradeCosts: 050000000500000005000000
   costType: 0
-  upgradeDescription: sasdasf
+  upgradeDescription: 
   upgradeValues:
   - 5
   - 5
