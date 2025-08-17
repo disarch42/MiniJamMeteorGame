@@ -295,10 +295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meteorHealthMult: 1
-  meteorSpawnChance: 0.01
   meteorSpeedMult: 1
   meteorRadius: 1
-  maxBlackHoleRadius: 1.5
   minBlackHoleRadius: 0.5
   minBlackholeChargeTime: 0.06
   maxBlackholeChargeTime: 0.13
@@ -306,6 +304,15 @@ MonoBehaviour:
   startingHealth: 100
   mouseCollectRadius: 0.25
   chargingTimeScale: 0.5
+  MaxMeteorSize: 1
+  BlackHoleCost: 15
+  maxBlackHoleRadius: 1.5
+  bombMeteorChance: 0
+  magnetRadius: 0.5
+  meteorDamageOnHit: 10
+  meteorSpawnChance: 0.01
+  moneyGainRate: 1
+  pickupHealRate: 0
 --- !u!4 &182780927
 Transform:
   m_ObjectHideFlags: 0

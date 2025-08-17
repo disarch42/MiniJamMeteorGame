@@ -24,12 +24,10 @@ public class StatsManager:MonoBehaviour
 
 
     public  float meteorHealthMult=1;
-    public  float meteorSpawnChance=0.01f;
     public  float meteorSpeedMult=1;
     public  float meteorRadius=.5f;
 
 
-    public  float maxBlackHoleRadius=1.5f;
 
     public  float minBlackHoleRadius = 0.5f;
     public  float minBlackholeChargeTime = 0.06f;
@@ -40,7 +38,18 @@ public class StatsManager:MonoBehaviour
     public  float mouseCollectRadius = 0.25f;
 
     public  float chargingTimeScale = 0.5f;
-   
 
 
+    [Header("meteor spawner always takes a random value between min meteor size and this, and then assigns the ")]
+    public float MaxMeteorSize = 1;
+
+    public float BlackHoleCost = 15;
+    public float maxBlackHoleRadius = 1.5f;
+    public float bombMeteorChance = 0;
+    public float magnetRadius = 0.5f;
+
+    public float meteorDamageOnHit = 10f;
+    public float meteorSpawnChance = 0.01f;
+    public float moneyGainRate = 1;
+    public float pickupHealRate = 0;
 }

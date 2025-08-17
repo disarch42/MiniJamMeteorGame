@@ -1,17 +1,18 @@
 using UnityEngine;
 using System.Collections.Generic;
-
 [System.Serializable]
-[CreateAssetMenu(fileName = "MeteorHPUpgrade", menuName = "Upgrades/MeteorHPUpgrade")]
-public class MeteorHPUpdate : Upgrade
+[CreateAssetMenu(fileName = "MeteorHPUpgrade", menuName = "Upgrades/PillsUpgrade")]
+public class PillsUpgrade : Upgrade
 {
+    [Header("flat heal amount")]
     public List<float> upgradeValues = new List<float>();
 
     public override void OnUpgrade(int step)
     {
         base.OnUpgrade(step);
+        StatsManager.instance.pickupHealRate += upgradeValues[step];
         // Additional logic for MeteorHPUpgrade
-        Debug.LogWarning("Meteor HP Upgrade applied!" + step +" does nothing for now");
+        Debug.Log("Meteor HP Upgrade applied!" + step);
         // Increase the health of meteors or perform other upgrade-related actions
     }
 }
