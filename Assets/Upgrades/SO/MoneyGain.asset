@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de5357da01b9be4d905ba4bfae5ffe0, type: 3}
   m_Name: MoneyGain
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  upgradeCosts: 
+  icon: {fileID: -403422404, guid: 2804a0bca9ad3334c9bb8726ed399442, type: 3}
+  acquireableIcon: {fileID: -1683313062, guid: c0f91d7a5308e4342ba67f8f6a88ca7e, type: 3}
+  upgradeCosts: 0000000000000000000000000000000000000000
   costType: 0
-  upgradeDescription: 
-  upgradeValues: []
+  upgradeDescription: 'Increase overall crystall gained by %20 '
+  upgradeValues:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2

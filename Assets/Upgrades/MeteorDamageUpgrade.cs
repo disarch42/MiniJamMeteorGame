@@ -12,6 +12,7 @@ public class MeteorDamageUpgrade : Upgrade
         base.OnUpgrade(step);
 
         StatsManager.instance.meteorDamageOnHit += upgradeValues[step];
+
         // Additional logic for MeteorHPUpgrade
         Debug.Log("Meteor HP Upgrade applied!" + step);
         // Increase the health of meteors or perform other upgrade-related actions
