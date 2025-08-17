@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ffc42480efaa1f408ba8fc461f132d5, type: 3}
   m_Name: DecaySlow
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  upgradeCosts: 
+  icon: {fileID: -345116030, guid: 2804a0bca9ad3334c9bb8726ed399442, type: 3}
+  acquireableIcon: {fileID: 525294461, guid: c0f91d7a5308e4342ba67f8f6a88ca7e, type: 3}
+  upgradeCosts: 0000000000000000000000000000000000000000
   costType: 0
-  upgradeDescription: 
-  upgradeValues: []
+  upgradeDescription: Slow down energy decay rate
+  upgradeValues:
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1

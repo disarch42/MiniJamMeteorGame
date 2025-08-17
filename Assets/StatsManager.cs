@@ -53,4 +53,6 @@ public class StatsManager:MonoBehaviour
     public float moneyGainRate = 1;
     public float pickupHealRate = 0;
     public float decayIncreaseRate = 0.01f;
+
+    public int cornerBounceAmount = 0;
 }

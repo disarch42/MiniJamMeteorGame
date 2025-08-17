@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: MeteorHPUpgrade
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  upgradeCosts: 
+  acquireableIcon: {fileID: 0}
+  upgradeCosts: 0000000000000000000000000000000000000000
   costType: 0
   upgradeDescription: 
   upgradeValues: []

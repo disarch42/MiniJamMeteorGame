@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
         blackHoleFreezeTime = StatsManager.instance.blackHoleFreezeTime;
         collectibleMouseCollectRadius = StatsManager.instance.magnetRadius;
         chargingTimeScale = StatsManager.instance.chargingTimeScale;
+        
     }
     public void CreateCollectibles(Vector2 point, float randomRange, int amount)
     {
