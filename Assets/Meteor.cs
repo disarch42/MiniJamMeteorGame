@@ -39,6 +39,11 @@ public class Meteor : MonoBehaviour
     private int _remainingBounces;
     private bool _isDestroyed = false;
 
+    public bool isBomb;
+    public float explosionRadius;
+    public float bombDamage;
+    public GameObject shockwavePrefab;
+
     public Sprite crack0Sprite;
     public Sprite crack1Sprite;
     public Sprite crack2Sprite;
@@ -119,9 +124,23 @@ public class Meteor : MonoBehaviour
         }
         if (health < 0)
         {
-            //die
+            _isDestroyed = true;
             GameManager.GetInstance().CreateExplosionEffect(radius, transform.position, velocity);
             GameManager.GetInstance().CreateCollectibles(transform.position, radius, _leftDamageCurrency + _destroyDropCurrency);
+
+            if (isBomb)
+            {
+                Shockwave s = Instantiate(shockwavePrefab, transform.position, Quaternion.identity).GetComponent<Shockwave>();
+                s.Initialize(transform.position, .5f, explosionRadius/2);
+                for (int i = 0; i < GameManager.GetInstance().meteors.Count; i++)
+                {
+                    if (GameManager.GetInstance().meteors[i] == this) { continue; }
+                    if (Vector2.Distance(GameManager.GetInstance().meteors[i].transform.position, transform.position) < explosionRadius)
+                    {
+                        GameManager.GetInstance().meteors[i].DamageMeteor(bombDamage);
+                    }
+                }
+            }
             Destroy(gameObject);
         }
     }

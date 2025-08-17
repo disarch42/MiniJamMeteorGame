@@ -29,8 +29,10 @@ public class Shockwave : MonoBehaviour
         r = Mathf.Max(0.01f, r);
         _blackHoleRing.SetRadius(r * _ringAnimationExpansion / 2);
 
-        blackHole.transform.localScale = r * Vector3.one;
-
+        if (blackHole != null)
+        {
+            blackHole.transform.localScale = r * Vector3.one;
+        }
         if (_ringAnimationTimer >= _ringAnimationTime)
         {
             Destroy(gameObject);

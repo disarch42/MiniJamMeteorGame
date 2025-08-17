@@ -7,6 +7,8 @@ public class MeteorSpawner : MonoBehaviour
     public static MeteorSpawner instance;
 
     public List<Meteor> meteorPrefabs;
+    public Meteor bombMeteor;
+
     private float _spawnTimer;
     private bool _spawned = false;
     /*
@@ -48,7 +50,7 @@ public class MeteorSpawner : MonoBehaviour
         bool fromTop = Random.Range(0, 2) == 0;
         bool fromRight = Random.Range(0, 2) == 0;
         Vector3 spawnPos = GetMeteorSpawnPos(r, fromRight, fromTop);
-        Meteor meteorInstance = Instantiate(meteorPrefabs[Random.Range(0,meteorPrefabs.Count)], spawnPos, Quaternion.identity);
+        Meteor meteorInstance = Instantiate( (Random.Range(0.0f, 1.0f) < StatsManager.instance.bombMeteorChance) ? bombMeteor : meteorPrefabs[Random.Range(0,meteorPrefabs.Count)], spawnPos, Quaternion.identity);
         meteorInstance.InitializeMeteor(r, 3, 5*r, 1.0f, 10, 0.2f, GetMeteorVelocity(5, fromRight, fromTop));
     }
     //meteor velocity direction doesnt need to point in as the levels have bounds

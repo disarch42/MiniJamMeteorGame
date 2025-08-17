@@ -313,6 +313,7 @@ MonoBehaviour:
   meteorSpawnChance: 0.01
   moneyGainRate: 1
   pickupHealRate: 0
+  decayIncreaseRate: 0.01
 --- !u!4 &182780927
 Transform:
   m_ObjectHideFlags: 0

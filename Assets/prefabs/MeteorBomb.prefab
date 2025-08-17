@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 605278836236469575}
   - component: {fileID: 3796355500846838553}
   m_Layer: 0
-  m_Name: Meteorb
+  m_Name: MeteorBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,13 +205,13 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   hpColorGlow: 4
   kineticEnergy: 0
-  isBomb: 0
+  isBomb: 1
   explosionRadius: 3
   bombDamage: 43.04
   shockwavePrefab: {fileID: 3055355351047312383, guid: eaf2bd5c79097d942b08c3e74cfa7dbf, type: 3}
-  crack0Sprite: {fileID: 5739128012286437613, guid: a582a62bc87f82843b200d628d9fa2aa, type: 3}
-  crack1Sprite: {fileID: -4613046951314388030, guid: 9192738f6de79904a8e93b0279461a32, type: 3}
-  crack2Sprite: {fileID: -4717850875005977543, guid: 9899c08b4c058a74e846f2ce934b24b7, type: 3}
+  crack0Sprite: {fileID: 21300000, guid: 9346fb0379e486447b927e4b172e81da, type: 3}
+  crack1Sprite: {fileID: 21300000, guid: c1a06fb9dda934c4e94cbdfbbf304493, type: 3}
+  crack2Sprite: {fileID: 21300000, guid: 019e03af4dd99a749a3082ffb2a08336, type: 3}
 --- !u!1 &8846698758973674278
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +268,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 50db8aac58fc3a5408473fdc17e70cff, type: 2}
+  - {fileID: 2100000, guid: 5c90319412e041f4a8a58e17861e7799, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

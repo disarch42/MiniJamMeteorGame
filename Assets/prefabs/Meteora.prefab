@@ -205,6 +205,10 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   hpColorGlow: 4
   kineticEnergy: 0
+  isBomb: 0
+  explosionRadius: 3
+  bombDamage: 0
+  shockwavePrefab: {fileID: 3055355351047312383, guid: eaf2bd5c79097d942b08c3e74cfa7dbf, type: 3}
   crack0Sprite: {fileID: 3800133089024014635, guid: 8306862effc44de43986c6fdb558abb3, type: 3}
   crack1Sprite: {fileID: 8153030496169914709, guid: 033fe180237219946b4d99695fdae1ad, type: 3}
   crack2Sprite: {fileID: -7112363265595704721, guid: 4a8be0771b8c90645af4d3dab47de974, type: 3}
