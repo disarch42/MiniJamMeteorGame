@@ -301,7 +301,7 @@ MonoBehaviour:
   minBlackholeChargeTime: 0.06
   maxBlackholeChargeTime: 0.13
   blackHoleFreezeTime: 0.25
-  startingHealth: 100
+  startingHealth: 500
   mouseCollectRadius: 0.25
   chargingTimeScale: 0.5
   MaxMeteorSize: 1
@@ -678,7 +678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &801894869
 RectTransform:
   m_ObjectHideFlags: 0
