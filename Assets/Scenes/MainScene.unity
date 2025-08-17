@@ -789,9 +789,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2074482297092192105, guid: 51219219f0f97204cb9f9d595ba28941, type: 3}
+      propertyPath: m_UseSpriteMesh
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3985480481884515806, guid: 51219219f0f97204cb9f9d595ba28941, type: 3}
       propertyPath: m_Name
       value: Cursor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023964373608326606, guid: 51219219f0f97204cb9f9d595ba28941, type: 3}
+      propertyPath: m_SortingOrder
+      value: 272
       objectReference: {fileID: 0}
     - target: {fileID: 7367788060937915588, guid: 51219219f0f97204cb9f9d595ba28941, type: 3}
       propertyPath: m_Pivot.x
