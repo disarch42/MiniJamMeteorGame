@@ -35,11 +35,10 @@ public class Meteor : MonoBehaviour
     //if positive freeze
     private float _freezeTimer=-1;
     public const float maxSpeed = 30.0f;
-    public bool bounceWalls = true;
-
+    private int _remainingBounces;
     private bool _isDestroyed = false;
     // since meteors will probably be cached having a function that resets all values will be nice
-    public void InitializeMeteor(float _radius, float _mass, float _health, int _currencyDrop, float _damage, Vector2 _initialVelocity)
+    public void InitializeMeteor(float _radius, int bounceAmount, float _mass, float _health, int _currencyDrop, float _damage, Vector2 _initialVelocity)
     {
         if (_radius == 0) { _radius = transform.localScale.x; }
         if (_mass == 0) { _mass = 1; }
@@ -48,6 +47,7 @@ public class Meteor : MonoBehaviour
         radius = _radius;
         mass = _mass;
         velocity = _initialVelocity;
+        _remainingBounces = bounceAmount;
 
         _totalCurrencyDrop = _currencyDrop;
         _leftDamageCurrency = (int)(_currencyDrop*0.2f);
@@ -128,28 +128,25 @@ public class Meteor : MonoBehaviour
         void ApplyMovement()
         {
             if (_freezeTimer > 0) { _freezeTimer -= Time.fixedDeltaTime; return; }
-            
+
             if (velocity.magnitude > maxSpeed)
             {
                 velocity = velocity.normalized * maxSpeed;
             }
-
-            if (bounceWalls)
+            
+            if (( (transform.position.x + radius > GameManager.GetInstance().rectBounds.max.x && velocity.x > 0) ||
+                (transform.position.x - radius < GameManager.GetInstance().rectBounds.min.x && velocity.x < 0) ) && _remainingBounces>0)
             {
-                if ((transform.position.x + radius > GameManager.GetInstance().rectBounds.max.x && velocity.x > 0) ||
-                    (transform.position.x - radius < GameManager.GetInstance().rectBounds.min.x && velocity.x < 0))
-                {
-                    velocity.x *= -1;
-                }
-                if ((transform.position.y + radius > GameManager.GetInstance().rectBounds.max.y && velocity.y > 0) ||
-                    (transform.position.y - radius < GameManager.GetInstance().rectBounds.min.y && velocity.y < 0))
-                {
-                    velocity.y *= -1;
-                }
+                _remainingBounces--;
+                velocity.x *= -1;
             }
-
+            if (((transform.position.y + radius > GameManager.GetInstance().rectBounds.max.y && velocity.y > 0) ||
+                (transform.position.y - radius < GameManager.GetInstance().rectBounds.min.y && velocity.y < 0)) && _remainingBounces > 0)
+            {
+                _remainingBounces--;
+                velocity.y *= -1;
+            }
             transform.position = transform.position + (Vector3)(velocity * Time.fixedDeltaTime);
-
             float velocityMagnitude = velocity.magnitude;
             kineticEnergy = mass * velocityMagnitude * velocityMagnitude * 0.5f;
         }
