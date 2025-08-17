@@ -47,6 +47,8 @@ public class Meteor : MonoBehaviour
     public Sprite crack0Sprite;
     public Sprite crack1Sprite;
     public Sprite crack2Sprite;
+
+    public Transform trail;
     // since meteors will probably be cached having a function that resets all values will be nice
     public void InitializeMeteor(float _radius, int bounceAmount, float _mass, float _health, int _currencyDrop, float _damage, Vector2 _initialVelocity)
     {
@@ -101,6 +103,10 @@ public class Meteor : MonoBehaviour
     {
         if( _isDestroyed) { return; }
         spriteRendererTransform.position = Vector3.Lerp(_prevPos, transform.position, (Time.time-_lastFrameTime) / Time.fixedDeltaTime);
+        float rad = Mathf.Atan2(velocity.y, velocity.x);
+        trail.transform.eulerAngles = new Vector3(0, 0, rad*Mathf.Rad2Deg+180);
+        trail.transform.position = transform.position - new Vector3(Mathf.Cos(rad) * radius * 1.1f, Mathf.Sin(rad) * radius * 1.1f, 0);
+
     }
     public void DamageMeteor(float dmg)
     {
