@@ -46,7 +46,7 @@ public class StatsManager:MonoBehaviour
     public float BlackHoleCost = 15;
     public float maxBlackHoleRadius = 1.5f;
     public float bombMeteorChance = 0;
-    public float magnetRadius = 0.5f;
+    public float magnetRadius = 0.2f;
 
     public float meteorDamageOnHit = 10f;
     public float meteorSpawnChance = 0.01f;

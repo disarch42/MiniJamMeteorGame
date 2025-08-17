@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         minChargeTime = StatsManager.instance.minBlackholeChargeTime;
         maxChargeTime = StatsManager.instance.maxBlackholeChargeTime;
         blackHoleFreezeTime = StatsManager.instance.blackHoleFreezeTime;
-        collectibleMouseCollectRadius = StatsManager.instance.mouseCollectRadius;
+        collectibleMouseCollectRadius = StatsManager.instance.magnetRadius;
         chargingTimeScale = StatsManager.instance.chargingTimeScale;
     }
     public void CreateCollectibles(Vector2 point, float randomRange, int amount)
@@ -216,10 +216,11 @@ public class GameManager : MonoBehaviour
                         float meteorADmg = meteorA.damage;
                         float meteorBDmg = meteorB.damage;
 
-                        meteorA.DamageMeteor(meteorBDmg);
+                        float flatMeteorDamage = StatsManager.instance.meteorDamageOnHit;
+                        meteorA.DamageMeteor(flatMeteorDamage);
 
 
-                        meteorB.DamageMeteor(meteorADmg);
+                        meteorB.DamageMeteor(flatMeteorDamage);
 
                         ScreenShake.instance.AddScreenShake(0.1f, 0.15f);
                     }
@@ -228,8 +229,10 @@ public class GameManager : MonoBehaviour
         }
         void BlackHoleUpdate()
         {
+            //if (HealthbarController.instance.health < StatsManager.instance.BlackHoleCost) return;
+
             //just started charging
-            if (!charging && _holdingM1)
+            if (!charging && _holdingM1 && HealthbarController.instance.health >= StatsManager.instance.BlackHoleCost)
             {
                 _chargeTime = 0;
                 blackHolePreviewRing.gameObject.SetActive(true);
@@ -260,6 +263,7 @@ public class GameManager : MonoBehaviour
                 //end charge
                 if (!_holdingM1)
                 {
+                    HealthbarController.instance.HealthChange(-StatsManager.instance.BlackHoleCost);
                     _afterEffectsTimer = afterEffectsTime;
                     Time.timeScale = 1.0f;
                     blackHolePreviewRing.gameObject.SetActive(false);
