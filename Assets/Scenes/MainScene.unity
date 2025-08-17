@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 130555745}
   - component: {fileID: 130555744}
   - component: {fileID: 130555743}
+  - component: {fileID: 130555746}
   m_Layer: 5
   m_Name: startGameButton
   m_TagString: Untagged
@@ -202,9 +203,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1916797852}
-        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: StartRound
+      - m_Target: {fileID: 130555746}
+        m_TargetAssemblyTypeName: NextSceneButton, Assembly-CSharp
+        m_MethodName: NextScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -252,6 +253,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130555741}
   m_CullTransparentMesh: 1
+--- !u!114 &130555746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130555741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ba4c95c2eaae4643b00a1df61258858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &182780925
 GameObject:
   m_ObjectHideFlags: 0
