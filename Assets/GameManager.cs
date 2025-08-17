@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
@@ -40,7 +41,7 @@ public class GameManager : MonoBehaviour
     private float _chargeTime = -1;
     private float _lastFrameTime = -1;
     public float blackHoleMinSpeed;
-    
+
     public BlackHoleRing blackHolePreviewRing;
     //set chargetime to -1 if we are not charging 
     private bool charging { get { return _chargeTime >= 0; } }
@@ -71,31 +72,31 @@ public class GameManager : MonoBehaviour
         maxChargeTime = StatsManager.instance.maxBlackholeChargeTime;
         blackHoleFreezeTime = StatsManager.instance.blackHoleFreezeTime;
         collectibleMouseCollectRadius = StatsManager.instance.mouseCollectRadius;
-        chargingTimeScale = StatsManager.instance.chargingTimeScale;        
+        chargingTimeScale = StatsManager.instance.chargingTimeScale;
     }
     public void CreateCollectibles(Vector2 point, float randomRange, int amount)
     {
         for (int i = 0; i < amount; i++)
         {
             Collectible c;
-            if (cachedCollectibles.Count > 0) 
-            { 
-                c = cachedCollectibles[0]; 
-                cachedCollectibles.RemoveAt(0); 
+            if (cachedCollectibles.Count > 0)
+            {
+                c = cachedCollectibles[0];
+                cachedCollectibles.RemoveAt(0);
             }
             else
             {
                 c = GameObject.Instantiate(collectiblePrefab).GetComponent<Collectible>();
             }
             c.gameObject.SetActive(true);
-            c.transform.position = point + Random.insideUnitCircle*Random.Range(0.0f,randomRange);
+            c.transform.position = point + Random.insideUnitCircle * Random.Range(0.0f, randomRange);
             c.InitializeCollectible(5);
             availableCollectibles.Add(c);
         }
     }
     private void CreateShockwave(Vector2 pos, float r)
     {
-        Instantiate(shockwavePrefab).GetComponent<Shockwave>().Initialize(pos, blackHoleFreezeTime*1.25f, r);
+        Instantiate(shockwavePrefab).GetComponent<Shockwave>().Initialize(pos, blackHoleFreezeTime * 1.25f, r);
     }
     public void CreateExplosionEffect(float r, Vector2 p, Vector2 initialSpeed)
     {
@@ -105,29 +106,45 @@ public class GameManager : MonoBehaviour
     {
         _current = this;
     }
+
+    private void OnMousePositionPerformed(InputAction.CallbackContext ctx)
+    {
+        cursorImage.enabled = true;
+        _mouseScreenPos = ctx.ReadValue<Vector2>();
+        _mouseWorldPos = Camera.main.ScreenToWorldPoint(_mouseScreenPos);
+    }
+
+    private void OnMousePositionCanceled(InputAction.CallbackContext ctx)
+    {
+        cursorImage.enabled = false;
+        _mouseScreenPos = Vector2.zero;
+        _mouseWorldPos = Vector2.zero;
+    }
+
+    private void OnBlackHolePerformed(InputAction.CallbackContext ctx) { _holdingM1 = true; }
+    private void OnBlackHoleCanceled(InputAction.CallbackContext ctx) { _holdingM1 = false; }
+
     private void Start()
     {
         SetValuesFromStats();
         Cursor.visible = false;
         blackHolePreviewRing.gameObject.SetActive(false);
 
-        InputSystem.GetCurrent().actions.Player.MousePosition.performed += ctx =>
-        {
-            cursorImage.enabled = true;
-            _mouseScreenPos = ctx.ReadValue<Vector2>();
-            _mouseWorldPos = Camera.main.ScreenToWorldPoint(_mouseScreenPos);
-        };
-        InputSystem.GetCurrent().actions.Player.MousePosition.canceled += ctx =>
-        {
-            cursorImage.enabled = false;
-            _mouseScreenPos = Vector2.zero;
-            _mouseWorldPos = Vector2.zero;
-        };
 
-        InputSystem.GetCurrent().actions.Player.BlackHole.performed += ctx => { _holdingM1 = true; };
-        InputSystem.GetCurrent().actions.Player.BlackHole.canceled += ctx => { _holdingM1 = false; };
+
+        InputSystem.GetCurrent().actions.Player.MousePosition.performed += OnMousePositionPerformed;
+        InputSystem.GetCurrent().actions.Player.MousePosition.canceled += OnMousePositionCanceled;
+        InputSystem.GetCurrent().actions.Player.BlackHole.performed += OnBlackHolePerformed;
+        InputSystem.GetCurrent().actions.Player.BlackHole.canceled += OnBlackHoleCanceled;
 
         cursorSliderGameObject.SetActive(false);
+    }
+    private void OnDestroy()
+    {
+        InputSystem.GetCurrent().actions.Player.MousePosition.performed -= OnMousePositionPerformed;
+        InputSystem.GetCurrent().actions.Player.MousePosition.canceled -= OnMousePositionCanceled;
+        InputSystem.GetCurrent().actions.Player.BlackHole.performed -= OnBlackHolePerformed;
+        InputSystem.GetCurrent().actions.Player.BlackHole.canceled -= OnBlackHoleCanceled;
     }
     private void Update()
     {

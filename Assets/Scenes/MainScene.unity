@@ -290,6 +290,7 @@ MonoBehaviour:
   minBlackholeChargeTime: 0.06
   maxBlackholeChargeTime: 0.13
   blackHoleFreezeTime: 0.25
+  startingHealth: 100
   mouseCollectRadius: 0.25
   chargingTimeScale: 0.5
 --- !u!4 &182780927

@@ -9,9 +9,17 @@ public class InputSystem : MonoBehaviour
     public InputSystem_Actions actions;
     private void Awake()
     {
-        _current = this;
-        actions = new InputSystem_Actions();
-        actions.Enable();
-        actions.Player.Enable();
+        if (_current == null)
+        {
+            _current = this;
+            actions = new InputSystem_Actions();
+            actions.Enable();
+            actions.Player.Enable();
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
