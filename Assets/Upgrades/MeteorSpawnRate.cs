@@ -10,6 +10,7 @@ public class MeteorSpawnRate : Upgrade
     {
         base.OnUpgrade(step);
         // Additional logic for MeteorSpeedUpgrade
+        StatsManager.instance.meteorSpawnChance += upgradeValues[step];
         Debug.Log("Meteor Speed Upgrade applied!" + step);
         // Increase the speed of meteors or perform other upgrade-related actions
     }
