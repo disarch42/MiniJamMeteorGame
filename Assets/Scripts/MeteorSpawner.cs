@@ -7,7 +7,8 @@ public class MeteorSpawner : MonoBehaviour
     public static MeteorSpawner instance;
 
     public List<Meteor> meteorPrefabs;
-
+    private float _spawnTimer;
+    private bool _spawned = false;
     /*
     private void Start()
     {
@@ -26,10 +27,19 @@ public class MeteorSpawner : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(Random.Range(0.0f, 1.0f) <= StatsManager.instance.meteorSpawnChance)
+        if(!_spawned && Random.Range(0.0f, 1.0f) <= StatsManager.instance.meteorSpawnChance)
         {
             SpawnMeteor();
+            _spawned = true;
+            _spawnTimer = 0.25f;
         }
+        else if (_spawned && _spawnTimer<=0)
+        {
+            SpawnMeteor();
+            _spawned = false;
+        }
+        _spawnTimer -= Time.fixedDeltaTime;
+
     }
 
     public void SpawnMeteor()
