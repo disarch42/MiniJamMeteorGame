@@ -22,7 +22,7 @@ public class StatsManager:MonoBehaviour
     public  float meteorHealthMult=1;
     public  float meteorSpawnChance=0.01f;
     public  float meteorSpeedMult=1;
-    public  float meteorRadius=1;
+    public  float meteorRadius=.5f;
 
 
     public  float maxBlackHoleRadius=1.5f;

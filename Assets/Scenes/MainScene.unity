@@ -252,11 +252,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130555741}
   m_CullTransparentMesh: 1
---- !u!4 &639001073 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7353683816048775286, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-  m_PrefabInstance: {fileID: 6436857110542934494}
+--- !u!1 &182780925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 182780927}
+  - component: {fileID: 182780926}
+  m_Layer: 0
+  m_Name: StatManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &182780926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182780925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee697831343adf14eb93b626b88fda79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meteorHealthMult: 1
+  meteorSpawnChance: 0.01
+  meteorSpeedMult: 1
+  meteorRadius: 1
+  maxBlackHoleRadius: 1.5
+  minBlackHoleRadius: 0.5
+  minBlackholeChargeTime: 0.06
+  maxBlackholeChargeTime: 0.13
+  blackHoleFreezeTime: 0.25
+  mouseCollectRadius: 0.25
+  chargingTimeScale: 0.5
+--- !u!4 &182780927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182780925}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &655440736
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,6 +524,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744781214}
   m_CullTransparentMesh: 1
+--- !u!1 &811397158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 811397160}
+  - component: {fileID: 811397159}
+  m_Layer: 0
+  m_Name: MeteorSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &811397159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811397158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc8f467f3576b143a9e4129b090d9ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meteorPrefab: {fileID: 3796355500846838553, guid: b4c07705a6ac0564b98c2a91c805113a, type: 3}
+--- !u!4 &811397160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811397158}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1049130230
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,7 +854,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1776341621}
   m_CullTransparentMesh: 1
---- !u!1 &1888015437
+--- !u!1 &1815159167
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -767,53 +862,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1888015438}
-  - component: {fileID: 1888015439}
+  - component: {fileID: 1815159169}
+  - component: {fileID: 1815159168}
   m_Layer: 0
-  m_Name: StatManager
+  m_Name: Currencymanager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1888015438
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1888015437}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 639001073}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1888015439
+--- !u!114 &1815159168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1888015437}
+  m_GameObject: {fileID: 1815159167}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee697831343adf14eb93b626b88fda79, type: 3}
+  m_Script: {fileID: 11500000, guid: 01f9e55e1538aa8449dfdaff5db2800e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meteorHealthMult: 1
-  meteorSpawnChance: 0.01
-  meteorSpeedMult: 1
-  meteorRadius: 1
-  maxBlackHoleRadius: 1.5
-  minBlackHoleRadius: 0.5
-  minBlackholeChargeTime: 0.06
-  maxBlackholeChargeTime: 0.13
-  blackHoleFreezeTime: 0.25
-  mouseCollectRadius: 0.25
-  chargingTimeScale: 0.5
+  CurrencyList: 9600000096000000
+--- !u!4 &1815159169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815159167}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1916797850
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,74 +943,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a1c27c03cd143f4287ab9bcc95f41c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &6436857110542934494
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 55442605887552364, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-      propertyPath: m_Name
-      value: KorayManagers
-      objectReference: {fileID: 0}
-    - target: {fileID: 5154257612289526172, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7353683816048775286, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7353683816048775286, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7353683816048775286, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7353683816048775286, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7353683816048775286, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7353683816048775286, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7353683816048775286, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7353683816048775286, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7353683816048775286, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7353683816048775286, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7869833801898031432, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-      propertyPath: 'CurrencyList.Array.data[0]'
-      value: 150
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7353683816048775286, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1888015438}
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b133face879b74f4ca1090f4f54acd3a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -933,5 +950,7 @@ SceneRoots:
   - {fileID: 1216215812}
   - {fileID: 1049130234}
   - {fileID: 655440739}
-  - {fileID: 6436857110542934494}
   - {fileID: 1916797851}
+  - {fileID: 1815159169}
+  - {fileID: 182780927}
+  - {fileID: 811397160}

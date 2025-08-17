@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    private void CreateCollectibles(Vector2 point, float randomRange, int amount)
+    public void CreateCollectibles(Vector2 point, float randomRange, int amount)
     {
         for (int i = 0; i < amount; i++)
         {
@@ -190,10 +190,11 @@ public class GameManager : MonoBehaviour
 
                         meteorA.transform.position = new Vector3(meteorApos.x, meteorApos.y, meteorA.transform.position.z);
                         meteorB.transform.position = new Vector3(meteorBpos.x, meteorBpos.y, meteorB.transform.position.z);
-
-
-                        CreateCollectibles(meteorA.transform.position, meteorA.radius, 5);
-                        CreateCollectibles(meteorB.transform.position, meteorB.radius, 5);
+                        
+                        float meteorADmg = meteorA.damage;
+                        float meteorBDmg = meteorB.damage;
+                        meteorA.DamageMeteor(meteorBDmg);
+                        meteorB.DamageMeteor(meteorADmg);
                     }
                 }
             }
@@ -208,15 +209,17 @@ public class GameManager : MonoBehaviour
             }
 
             //collect collectibles with mouse
-            for (int i = availableCollectibles.Count - 1; i >= 0; i--)
+            if (!charging)
             {
-                if (Vector2.Distance(availableCollectibles[i].transform.position, _mouseWorldPos) < collectibleMouseCollectRadius)
+                for (int i = availableCollectibles.Count - 1; i >= 0; i--)
                 {
-                    availableCollectibles[i].OnCollect(_mouseWorldPos, 0.0f);
-                    availableCollectibles.RemoveAt(i);
+                    if (Vector2.Distance(availableCollectibles[i].transform.position, _mouseWorldPos) < collectibleMouseCollectRadius)
+                    {
+                        availableCollectibles[i].OnCollect(_mouseWorldPos, 0.0f);
+                        availableCollectibles.RemoveAt(i);
+                    }
                 }
             }
-
 
             if (charging)
             {

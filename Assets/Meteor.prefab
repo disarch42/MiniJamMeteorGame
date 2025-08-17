@@ -147,7 +147,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.37, y: -0.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8555790211093833449}
   - {fileID: 4490938336992607841}
@@ -167,9 +167,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowTransform: {fileID: 8555790211093833449}
   spriteRendererTransform: {fileID: 4490938336992607841}
-  velocity: {x: 5, y: 0}
+  velocity: {x: 0, y: 0}
   radius: 0.5
   mass: 5
+  maxHealth: 0
+  health: 0
+  damage: 0
+  hpColor:
+    serializedVersion: 2
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 1, g: 0.50980395, b: 0, a: 1}
+    key2: {r: 0.50980395, g: 1, b: 0, a: 0}
+    key3: {r: 0, g: 1, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 21627
+    ctime2: 43253
+    ctime3: 65535
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
+  hpColorGlow: 4
   kineticEnergy: 0
 --- !u!1 &8846698758973674278
 GameObject:
@@ -314,7 +348,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.23855019
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0

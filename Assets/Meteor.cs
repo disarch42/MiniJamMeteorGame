@@ -5,12 +5,29 @@ public class Meteor : MonoBehaviour
     [Header("references")]
     public Transform arrowTransform;
     public Transform spriteRendererTransform;
-
+    private Material _spriteRendMaterial;
     [Header("stats")]
     public Vector2 velocity;
     public float radius;
     public float mass;
+    //health is determined by the hit of the weakest meteor.
+    public float maxHealth;
+    public float health;
+    //probably something like 1/5 of health would be nice
+    public float damage;
+    public Gradient hpColor;
+    public float hpColorGlow;
+    //this is not used anywhere
     public float kineticEnergy;
+
+    //[Header()]
+
+    private int _totalCurrencyDrop;
+
+    //this is for when we get destroyed
+    private int _destroyDropCurrency;
+    //this is for when we get damaged. 
+    private int _leftDamageCurrency;
 
     //private
     private float _lastFrameTime;
@@ -19,18 +36,32 @@ public class Meteor : MonoBehaviour
     private float _freezeTimer=-1;
 
     // since meteors will probably be cached having a function that resets all values will be nice
-    void InitializeMeteor(float _radius, float _mass, Vector2 initialVelocity)
+    public void InitializeMeteor(float _radius, float _mass, float _health, int _currencyDrop, float _damage, Vector2 _initialVelocity)
     {
         if (_radius == 0) { _radius = transform.localScale.x; }
         if (_mass == 0) { _mass = 1; }
+        if (_health == 0) {  health = 1; }
+        transform.localScale = Vector3.one * _radius * 2;
         radius = _radius;
         mass = _mass;
-        velocity = initialVelocity;
+        velocity = _initialVelocity;
+
+        _totalCurrencyDrop = _currencyDrop;
+        _leftDamageCurrency = (int)(_currencyDrop*0.2f);
+        _destroyDropCurrency = _currencyDrop - _leftDamageCurrency;
+        
+        maxHealth = _health;
+        health = _health;
+        damage = _damage;
     }
     private void Start()
     {
-        InitializeMeteor(radius, mass, velocity);
+        //ideally we only create meteors from meteorspawner so we dont want this anymore.
+        //removing this will cause issues with meteors that are not created with spawner.
+        //InitializeMeteor(radius, maxHealth, mass, currencyDrop, damage, velocity);
         GameManager.GetInstance().meteors.Add(this);
+        _spriteRendMaterial = spriteRendererTransform.GetComponent<SpriteRenderer>().material;
+        _spriteRendMaterial.SetColor("_EmissionColor", hpColor.Evaluate(health/maxHealth) * hpColorGlow);
     }
     private void OnDestroy()
     {
@@ -40,13 +71,27 @@ public class Meteor : MonoBehaviour
     {
         spriteRendererTransform.position = Vector3.Lerp(_prevPos, transform.position, (Time.time-_lastFrameTime) / Time.fixedDeltaTime);
     }
+    public void DamageMeteor(float dmg)
+    {
+        health -= dmg;
+        int dropAmount = Mathf.Min((int)Mathf.Ceil( _totalCurrencyDrop * (dmg/maxHealth)*0.2f ), _leftDamageCurrency);
+        _leftDamageCurrency -= dropAmount;
+        GameManager.GetInstance().CreateCollectibles(transform.position, radius, dropAmount);
 
+        _spriteRendMaterial.SetColor("_EmissionColor", hpColor.Evaluate(health/maxHealth)* hpColorGlow);
+
+        if (health < 0)
+        {
+            //die
+            GameManager.GetInstance().CreateCollectibles(transform.position, radius, _leftDamageCurrency + _destroyDropCurrency);
+            Destroy(gameObject);
+        }
+    }
     public void ChangeVelocity(float freezetime, Vector2 newVelocity)
     {
         _freezeTimer = freezetime;
         velocity = newVelocity;
     }
-
     private void FixedUpdate()
     {
         _lastFrameTime = Time.time;
