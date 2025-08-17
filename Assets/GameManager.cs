@@ -52,6 +52,17 @@ public class GameManager : MonoBehaviour
     private Vector2 _mouseScreenPos;
     private Vector2 _mouseWorldPos;
 
+    public void SetValuesFromStats()
+    {
+        maxBlackHoleRadius = StatsManager.instance.maxBlackHoleRadius;
+        minBlackHoleRadius = StatsManager.instance.minBlackHoleRadius;
+        minChargeTime = StatsManager.instance.minBlackholeChargeTime;
+        maxChargeTime = StatsManager.instance.maxBlackholeChargeTime;
+        blackHoleFreezeTime = StatsManager.instance.blackHoleFreezeTime;
+        collectibleMouseCollectRadius = StatsManager.instance.mouseCollectRadius;
+        chargingTimeScale = StatsManager.instance.chargingTimeScale;
+        
+    }
 
     private void CreateCollectibles(Vector2 point, float randomRange, int amount)
     {
@@ -83,6 +94,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        SetValuesFromStats();
         Cursor.visible = false;
 
         InputSystem.GetCurrent().actions.Player.MousePosition.performed += ctx =>
