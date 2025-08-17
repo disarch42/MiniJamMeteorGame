@@ -11,7 +11,7 @@ public class MeteorExplosionParticle : MonoBehaviour
     public int width;
     public int height;
     public int pixelPerUnit;
-    
+    public Vector2 size;
     
     public bool emit;
     private void Update()
@@ -44,15 +44,15 @@ public class MeteorExplosionParticle : MonoBehaviour
         {
             //Vector2 r = Random.insideUnitCircle;
             //Vector2 localPos = r * radius; 
-
+            size = new Vector2(width / pixelPerUnit, height / pixelPerUnit);
             int xp = i % width;
             int yp = i / height;
 
-            Vector2 localPos = transform.position;
+            Vector2 localPos = new Vector2(xp/size.x, yp/size.y);
             particles[i].position = transform.position + (Vector3)localPos;
-            float u = Mathf.Clamp01( (pos.x + 1.0f) /2.0f);
-            float v = Mathf.Clamp01( (pos.y + 1.0f) / 2.0f);
-            particles[i].velocity = new Vector3(r.x, r.y, 0)*speed + (Vector3)(initialSpeed * initialSpeedMult);
+            float u = Mathf.Clamp01( (xp + 1.0f) / 2.0f);
+            float v = Mathf.Clamp01( (yp + 1.0f) / 2.0f);
+            particles[i].velocity = new Vector3(xp, yp, 0)*speed + (Vector3)(initialSpeed * initialSpeedMult);
             particles[i].startColor = new Color(u, v, 0, 1);
         }
         //velocityOverLifetimeModule.speedModifierMultiplier
