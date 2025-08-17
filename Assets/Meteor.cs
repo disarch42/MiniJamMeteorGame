@@ -83,6 +83,7 @@ public class Meteor : MonoBehaviour
         if (health < 0)
         {
             //die
+            GameManager.GetInstance().CreateExplosionEffect(radius, transform.position, velocity);
             GameManager.GetInstance().CreateCollectibles(transform.position, radius, _leftDamageCurrency + _destroyDropCurrency);
             Destroy(gameObject);
         }

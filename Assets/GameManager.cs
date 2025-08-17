@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public Image cursorSliderFillImage;
     public GameObject collectiblePrefab;
     public GameObject shockwavePrefab;
+    public MeteorExplosionParticle meteorExplosionParticle;
 
 
     [Header("black hole")]
@@ -51,7 +52,6 @@ public class GameManager : MonoBehaviour
     private bool _holdingM1;
     private Vector2 _mouseScreenPos;
     private Vector2 _mouseWorldPos;
-
     public void SetValuesFromStats()
     {
         maxBlackHoleRadius = StatsManager.instance.maxBlackHoleRadius;
@@ -60,8 +60,7 @@ public class GameManager : MonoBehaviour
         maxChargeTime = StatsManager.instance.maxBlackholeChargeTime;
         blackHoleFreezeTime = StatsManager.instance.blackHoleFreezeTime;
         collectibleMouseCollectRadius = StatsManager.instance.mouseCollectRadius;
-        chargingTimeScale = StatsManager.instance.chargingTimeScale;
-        
+        chargingTimeScale = StatsManager.instance.chargingTimeScale;        
     }
 
     public void CreateCollectibles(Vector2 point, float randomRange, int amount)
@@ -87,6 +86,10 @@ public class GameManager : MonoBehaviour
     private void CreateShockwave(Vector2 pos, float r)
     {
         Instantiate(shockwavePrefab).GetComponent<Shockwave>().Initialize(pos, blackHoleFreezeTime*1.25f, r);
+    }
+    public void CreateExplosionEffect(float r, Vector2 p, Vector2 initialSpeed)
+    {
+        meteorExplosionParticle.Explode(r, p, initialSpeed);
     }
     private void Awake()
     {
