@@ -22,11 +22,6 @@ public class GameManager : MonoBehaviour
 
     [Header("references")]
     //taking references like this might be messy
-    public Image cursorImage;
-    public Transform cursorCanvas;
-    public GameObject cursorSliderGameObject;
-    public Slider cursorSlider;
-    public Image cursorSliderFillImage;
     public GameObject collectiblePrefab;
     public GameObject shockwavePrefab;
     public MeteorExplosionParticle meteorExplosionParticle;
@@ -62,8 +57,6 @@ public class GameManager : MonoBehaviour
     public float chargingTimeScale = 0.5f;
 
     private bool _holdingM1;
-    private Vector2 _mouseScreenPos;
-    private Vector2 _mouseWorldPos;
     public void SetValuesFromStats()
     {
         maxBlackHoleRadius = StatsManager.instance.maxBlackHoleRadius;
@@ -106,63 +99,40 @@ public class GameManager : MonoBehaviour
     {
         _current = this;
     }
-
-    private void OnMousePositionPerformed(InputAction.CallbackContext ctx)
-    {
-        cursorImage.enabled = true;
-        _mouseScreenPos = ctx.ReadValue<Vector2>();
-        _mouseWorldPos = Camera.main.ScreenToWorldPoint(_mouseScreenPos);
-    }
-
-    private void OnMousePositionCanceled(InputAction.CallbackContext ctx)
-    {
-        cursorImage.enabled = false;
-        _mouseScreenPos = Vector2.zero;
-        _mouseWorldPos = Vector2.zero;
-    }
-
     private void OnBlackHolePerformed(InputAction.CallbackContext ctx) { _holdingM1 = true; }
     private void OnBlackHoleCanceled(InputAction.CallbackContext ctx) { _holdingM1 = false; }
 
     private void Start()
     {
         SetValuesFromStats();
-        Cursor.visible = false;
         blackHolePreviewRing.gameObject.SetActive(false);
 
 
 
-        InputSystem.GetCurrent().actions.Player.MousePosition.performed += OnMousePositionPerformed;
-        InputSystem.GetCurrent().actions.Player.MousePosition.canceled += OnMousePositionCanceled;
         InputSystem.GetCurrent().actions.Player.BlackHole.performed += OnBlackHolePerformed;
         InputSystem.GetCurrent().actions.Player.BlackHole.canceled += OnBlackHoleCanceled;
-
-        cursorSliderGameObject.SetActive(false);
     }
     private void OnDestroy()
     {
-        InputSystem.GetCurrent().actions.Player.MousePosition.performed -= OnMousePositionPerformed;
-        InputSystem.GetCurrent().actions.Player.MousePosition.canceled -= OnMousePositionCanceled;
         InputSystem.GetCurrent().actions.Player.BlackHole.performed -= OnBlackHolePerformed;
         InputSystem.GetCurrent().actions.Player.BlackHole.canceled -= OnBlackHoleCanceled;
     }
     private void Update()
     {
-        cursorCanvas.position = _mouseWorldPos;
         if (charging)
         {
             float updChargeTime = _chargeTime + (Time.time - _lastFrameTime);
             float t = Mathf.InverseLerp(0, maxChargeTime, updChargeTime);
-            cursorSlider.value = t;
-            cursorSliderFillImage.color = updChargeTime > minChargeTime ? Color.blueViolet : Color.indianRed;
+            CursorManager.instance.SetSliderValue(t);
+            //cursorSliderFillImage.color = updChargeTime > minChargeTime ? Color.blueViolet : Color.indianRed;
             blackHolePreviewRing.SetRadius(Mathf.Lerp(minBlackHoleRadius, maxBlackHoleRadius, t));
-            blackHolePreviewRing.transform.position = _mouseWorldPos;
+            blackHolePreviewRing.transform.position = CursorManager.instance.mouseWorldPos;
             SetPostProcesses(t/1.5f);
             float currentRadius = Mathf.Lerp(minBlackHoleRadius, maxBlackHoleRadius, Mathf.InverseLerp(0, maxChargeTime, updChargeTime));
             //arrow preview
             for (int i = 0; i < meteors.Count; i++)
             {
-                Vector2 distanceVector = _mouseWorldPos - (Vector2)meteors[i].spriteRendererTransform.position;
+                Vector2 distanceVector = CursorManager.instance.mouseWorldPos - (Vector2)meteors[i].spriteRendererTransform.position;
                 float dist = distanceVector.magnitude - meteors[i].radius;
                 meteors[i].arrowTransform.gameObject.SetActive(dist < currentRadius);
 
@@ -263,7 +233,7 @@ public class GameManager : MonoBehaviour
             {
                 _chargeTime = 0;
                 blackHolePreviewRing.gameObject.SetActive(true);
-                cursorSliderGameObject.SetActive(true);
+                CursorManager.instance.SetCursorSliderActive(true);
             }
 
             //collect collectibles with mouse
@@ -271,9 +241,9 @@ public class GameManager : MonoBehaviour
             {
                 for (int i = availableCollectibles.Count - 1; i >= 0; i--)
                 {
-                    if (Vector2.Distance(availableCollectibles[i].transform.position, _mouseWorldPos) < collectibleMouseCollectRadius)
+                    if (Vector2.Distance(availableCollectibles[i].transform.position, CursorManager.instance.mouseWorldPos) < collectibleMouseCollectRadius)
                     {
-                        availableCollectibles[i].OnCollect(_mouseWorldPos, 0.0f);
+                        availableCollectibles[i].OnCollect(CursorManager.instance.mouseWorldPos, 0.0f);
                         availableCollectibles.RemoveAt(i);
                     }
                 }
@@ -286,7 +256,7 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = Mathf.Lerp(1.0f, chargingTimeScale, t);
                 float currentRadius = Mathf.Lerp(minBlackHoleRadius, maxBlackHoleRadius, t);
                 blackHolePreviewRing.SetRadius(currentRadius);
-                blackHolePreviewRing.transform.position = _mouseWorldPos;
+                blackHolePreviewRing.transform.position = CursorManager.instance.mouseWorldPos;
                 //end charge
                 if (!_holdingM1)
                 {
@@ -295,7 +265,7 @@ public class GameManager : MonoBehaviour
                     blackHolePreviewRing.gameObject.SetActive(false);
                     ScreenShake.instance.AddScreenShake(0.1f, 0.08f);
 
-                    CreateShockwave(_mouseWorldPos, currentRadius);
+                    CreateShockwave(CursorManager.instance.mouseWorldPos, currentRadius);
                     foreach (Meteor meteor in meteors)
                     {
                         meteor.arrowTransform.gameObject.SetActive(false);
@@ -304,7 +274,7 @@ public class GameManager : MonoBehaviour
                     {
                         for (int i = 0; i < meteors.Count; i++)
                         {
-                            Vector2 distanceVector = _mouseWorldPos - (Vector2)meteors[i].transform.position;
+                            Vector2 distanceVector = CursorManager.instance.mouseWorldPos - (Vector2)meteors[i].transform.position;
                             float dist = distanceVector.magnitude-meteors[i].radius;
                             if (dist < currentRadius)
                             {
@@ -316,13 +286,13 @@ public class GameManager : MonoBehaviour
 
                     for (int i = availableCollectibles.Count - 1; i >= 0; i--)
                     {
-                        if (Vector2.Distance(availableCollectibles[i].transform.position, _mouseWorldPos) < currentRadius)
+                        if (Vector2.Distance(availableCollectibles[i].transform.position, CursorManager.instance.mouseWorldPos) < currentRadius)
                         {
-                            availableCollectibles[i].OnCollect(_mouseWorldPos, blackHoleFreezeTime);
+                            availableCollectibles[i].OnCollect(CursorManager.instance.mouseWorldPos, blackHoleFreezeTime);
                             availableCollectibles.RemoveAt(i);
                         }
                     }
-                    cursorSliderGameObject.SetActive(false);
+                    CursorManager.instance.SetCursorSliderActive(false);
                     _chargeTime = -1;
                 }
             }
@@ -336,7 +306,7 @@ public class GameManager : MonoBehaviour
         {
             Gizmos.color = Color.purple;
             float currentRadius = Mathf.Lerp(minBlackHoleRadius, maxBlackHoleRadius, Mathf.InverseLerp(0, maxChargeTime, _chargeTime));
-            Gizmos.DrawWireSphere(_mouseWorldPos, currentRadius);
+            Gizmos.DrawWireSphere(CursorManager.instance.mouseWorldPos, currentRadius);
         }
     }
 }
