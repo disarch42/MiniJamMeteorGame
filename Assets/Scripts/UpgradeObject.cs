@@ -1,13 +1,22 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UpgradeObject : MonoBehaviour, IPointerClickHandler
+public class UpgradeObject : MonoBehaviour, IPointerClickHandler,IPointerEnterHandler, IPointerExitHandler
 {
 
-
+    public Image border;
+    public Image icon;
+    public TextMeshProUGUI upgradeStepText;
+    public TextMeshProUGUI cost;
+    public GameObject description;
+    public TextMeshProUGUI upgradeDescription;
     public Upgrade assignedUpgrade;
     public int upgradeStep;
+
+    bool mouseOver = false;
+    float mouseOverCounter;
     private void Start()
     {
         UpdateVisuals();
@@ -15,7 +24,32 @@ public class UpgradeObject : MonoBehaviour, IPointerClickHandler
 
     public void UpdateVisuals()
     {
-        GetComponent<Image>().sprite = assignedUpgrade.icon;
+        icon.sprite = assignedUpgrade.icon;
+        upgradeStepText.text =  + (upgradeStep) + "/" + assignedUpgrade.upgradeCosts.Count;
+        upgradeDescription.text = assignedUpgrade.upgradeDescription;
+
+       
+
+        if (upgradeStep >= assignedUpgrade.upgradeCosts.Count)
+        {
+            cost.text = "";
+            border.color = Color.black;
+
+        }
+        else
+        {
+            cost.text = GetUpgradeCost().ToString() + " ";
+            if (CurrencyManager.Instance.CheckAffordable(assignedUpgrade.costType, GetUpgradeCost()))
+            {
+                border.color = Color.green;
+            }
+            else
+            {
+                border.color = Color.red;
+            }
+        }
+
+
     }
 
 
@@ -38,6 +72,7 @@ public class UpgradeObject : MonoBehaviour, IPointerClickHandler
         CurrencyManager.Instance.SpendCurrency(assignedUpgrade.costType, GetUpgradeCost());
         assignedUpgrade.OnUpgrade(upgradeStep);
         upgradeStep++;
+        UpdateVisuals();
     }
 
     public int GetUpgradeCost()
@@ -45,8 +80,33 @@ public class UpgradeObject : MonoBehaviour, IPointerClickHandler
         return assignedUpgrade.upgradeCosts[upgradeStep];
     }
 
+    private void Update()
+    {
+        if (mouseOver) HoldMouse();
+    }
+
+    public void HoldMouse()
+    {
+        mouseOverCounter += Time.deltaTime;
+        if (mouseOverCounter > 0.5f)
+        {
+            description.SetActive(true);
+        }
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         OnClick();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        mouseOver=true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        mouseOver = false;
+        mouseOverCounter = 0f;
+        description.SetActive(false);
     }
 }
