@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class HealthbarController : MonoBehaviour
 {
     public static HealthbarController instance;
-
     private void Awake()
     {
 
@@ -19,7 +18,7 @@ public class HealthbarController : MonoBehaviour
 
     }
 
-    public Image healthBarImage; // Reference to the UI Image component for the health bar
+    public Slider slider;
     public float health = 100f;
     public float healthDrainRate = 5;
     private void Start()
@@ -49,11 +48,15 @@ public class HealthbarController : MonoBehaviour
 
     public void UpdateHealthBar()
     {
-        healthBarImage.fillAmount = health / StatsManager.instance.startingHealth;
+        slider.value = (health / StatsManager.instance.startingHealth);
     }
-
+    private bool alreadyDead = false;
     public void Death()
     {
-        SceneManager.LoadScene("MainScene");
+        if (!alreadyDead)
+        {
+            alreadyDead = true;
+            MainMenuManager.instance.EndRound();
+        }
     }
 }

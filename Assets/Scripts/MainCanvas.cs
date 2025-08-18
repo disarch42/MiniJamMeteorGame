@@ -1,8 +1,11 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainCanvas : MonoBehaviour
 {
     public GameObject contents;
+    public Image transition;
     public static MainCanvas instance;
     private void Awake()
     {
@@ -10,6 +13,7 @@ public class MainCanvas : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            Show();
         }
         else
         {
@@ -26,6 +30,5 @@ public class MainCanvas : MonoBehaviour
     public void Show()
     {
         contents.SetActive(true);
-
     }
 }

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: pills
   m_EditorClassIdentifier: 
   icon: {fileID: -1847805367, guid: 2804a0bca9ad3334c9bb8726ed399442, type: 3}
-  acquireableIcon: {fileID: 920284423, guid: c0f91d7a5308e4342ba67f8f6a88ca7e, type: 3}
+  fullIcon: {fileID: 920284423, guid: c0f91d7a5308e4342ba67f8f6a88ca7e, type: 3}
   upgradeCosts: 0000000000000000000000000000000000000000
   costType: 0
-  upgradeDescription: Heal 1 energy everytime a crystal is picked up
+  upgradeDescription: Heal every time a crystal is picked up.
   upgradeValues:
   - 1
   - 1

@@ -56,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: dcdc07a32ab4d5b4cbf8a4ed7b39b769, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6109046247095505466, guid: bf1d5de73b13b714597cc97d01ebd89f, type: 3}
+  m_Sprite: {fileID: 5317458726617063449, guid: 41f000d6e3258134dbce8bc82e65b705, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 1784198891194295574}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f60c316e7eba52f43a39a639f308b3b2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 43c43ed5280296144bf8e2dc252e8117, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -136,8 +136,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.48, y: 0.63, z: 0.48}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.3, y: 0.39375004, z: 0.3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4897530160326891330}
   m_Father: {fileID: 605278836236469575}
@@ -218,7 +218,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5482649810088149819, guid: 7a0613ea410657642812fbe5f53aa7c6, type: 3}
+  m_Sprite: {fileID: -765150924802650856, guid: 3461b20a55589b6459f6bf990072c48a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -324,6 +324,8 @@ MonoBehaviour:
   crack1Sprite: {fileID: -4613046951314388030, guid: 9192738f6de79904a8e93b0279461a32, type: 3}
   crack2Sprite: {fileID: -4717850875005977543, guid: 9899c08b4c058a74e846f2ce934b24b7, type: 3}
   trail: {fileID: 5504943310478035267}
+  trailTurnSpeed: 10
+  trailMoveSpeed: 10
 --- !u!1 &8846698758973674278
 GameObject:
   m_ObjectHideFlags: 0

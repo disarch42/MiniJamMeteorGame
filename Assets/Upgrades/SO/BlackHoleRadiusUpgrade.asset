@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BlackHoleRadiusUpgrade
   m_EditorClassIdentifier: 
   icon: {fileID: -500238454, guid: 2804a0bca9ad3334c9bb8726ed399442, type: 3}
-  acquireableIcon: {fileID: 1988843750, guid: c0f91d7a5308e4342ba67f8f6a88ca7e, type: 3}
-  upgradeCosts: 0000000000000000000000000000000000000000
+  fullIcon: {fileID: 1988843750, guid: c0f91d7a5308e4342ba67f8f6a88ca7e, type: 3}
+  upgradeCosts: 3200000064000000960000002c010000f4010000
   costType: 0
   upgradeDescription: Increase the black hole (m1) radius by 0.5
   upgradeValues:

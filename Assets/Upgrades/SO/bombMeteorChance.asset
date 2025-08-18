@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: bombMeteorChance
   m_EditorClassIdentifier: 
   icon: {fileID: 757933708, guid: 2804a0bca9ad3334c9bb8726ed399442, type: 3}
-  acquireableIcon: {fileID: 510606093, guid: c0f91d7a5308e4342ba67f8f6a88ca7e, type: 3}
-  upgradeCosts: 0000000000000000000000000000000000000000
+  fullIcon: {fileID: 510606093, guid: c0f91d7a5308e4342ba67f8f6a88ca7e, type: 3}
+  upgradeCosts: 64000000c80000002c01000090010000f4010000
   costType: 0
   upgradeDescription: Increases the chance for bomb meteors
   upgradeValues:

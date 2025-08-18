@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: blackholecost
   m_EditorClassIdentifier: 
   icon: {fileID: -1754733618, guid: 2804a0bca9ad3334c9bb8726ed399442, type: 3}
-  acquireableIcon: {fileID: -2001488997, guid: c0f91d7a5308e4342ba67f8f6a88ca7e, type: 3}
-  upgradeCosts: 0000000000000000000000000000000000000000
+  fullIcon: {fileID: -2001488997, guid: c0f91d7a5308e4342ba67f8f6a88ca7e, type: 3}
+  upgradeCosts: 64000000960000005e010000f4010000bc020000
   costType: 0
   upgradeDescription: Decrease black hole energy cost by %10
   upgradeValues:

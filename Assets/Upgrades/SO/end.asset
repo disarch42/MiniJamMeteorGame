@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc59717d01287dc4faa47cff44f7f23b, type: 3}
+  m_Name: end
+  m_EditorClassIdentifier: 
+  icon: {fileID: -2914156944218887179, guid: 0ecff36e85237534a92ea72a0f062f7d, type: 3}
+  fullIcon: {fileID: 1801170369852503674, guid: c67f104e18918464fa3a90c4c3a18b00, type: 3}
+  upgradeCosts: d0070000
+  costType: 0
+  upgradeDescription: 'Finish the game!\nCredits:\nMomoko: Art\nKoray:Programming\ndisarch42:Programming'
+  upgradeValues:
+  - 0
