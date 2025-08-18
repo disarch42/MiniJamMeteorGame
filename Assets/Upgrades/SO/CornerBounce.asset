@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CornerBounce
   m_EditorClassIdentifier: 
   icon: {fileID: -564891183, guid: 2804a0bca9ad3334c9bb8726ed399442, type: 3}
-  acquireableIcon: {fileID: 1534238905, guid: c0f91d7a5308e4342ba67f8f6a88ca7e, type: 3}
-  upgradeCosts: 000000000000000000000000
+  fullIcon: {fileID: 1534238905, guid: c0f91d7a5308e4342ba67f8f6a88ca7e, type: 3}
+  upgradeCosts: 32000000c800000020030000
   costType: 0
   upgradeDescription: Geodes bounce back from the bounding box an extra time
   upgradeValues:

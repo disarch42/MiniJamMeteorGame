@@ -51,7 +51,10 @@ public class MeteorSpawner : MonoBehaviour
         bool fromRight = Random.Range(0, 2) == 0;
         Vector3 spawnPos = GetMeteorSpawnPos(r, fromRight, fromTop);
         Meteor meteorInstance = Instantiate( (Random.Range(0.0f, 1.0f) < StatsManager.instance.bombMeteorChance) ? bombMeteor : meteorPrefabs[Random.Range(0,meteorPrefabs.Count)], spawnPos, Quaternion.identity);
-        meteorInstance.InitializeMeteor(r, 3, 5*r, 1.0f, 10, 0.2f, GetMeteorVelocity(5, fromRight, fromTop));
+        float size=Random.Range(1.0f, 2.0f);
+        meteorInstance.InitializeMeteor(
+            Mathf.Lerp(.5f, StatsManager.instance.meteorRadius, (size-1.0f)/2),
+            StatsManager.instance.cornerBounceAmount+2, 5*size, StatsManager.instance.meteorHealth*size, 10, 0.2f, GetMeteorVelocity(5, fromRight, fromTop));
     }
     //meteor velocity direction doesnt need to point in as the levels have bounds
     public Vector2 GetMeteorVelocity(float mag, bool fromRight, bool fromTop)

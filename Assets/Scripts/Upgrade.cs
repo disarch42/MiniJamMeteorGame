@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Upgrade:ScriptableObject
 {
     public Sprite icon;
-    public Sprite acquireableIcon;
+    public Sprite fullIcon;
     public List<int> upgradeCosts = new List<int>();
     public int costType;
     public string upgradeDescription;

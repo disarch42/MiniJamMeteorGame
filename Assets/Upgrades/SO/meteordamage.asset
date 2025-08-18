@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: meteordamage
   m_EditorClassIdentifier: 
   icon: {fileID: -1467732022, guid: 2804a0bca9ad3334c9bb8726ed399442, type: 3}
-  acquireableIcon: {fileID: -83727373, guid: c0f91d7a5308e4342ba67f8f6a88ca7e, type: 3}
-  upgradeCosts: 0000000000000000000000000000000000000000
+  fullIcon: {fileID: -83727373, guid: c0f91d7a5308e4342ba67f8f6a88ca7e, type: 3}
+  upgradeCosts: 6400000096000000c80000002c010000f4010000
   costType: 0
   upgradeDescription: Each meteor hit deals more damage
   upgradeValues:

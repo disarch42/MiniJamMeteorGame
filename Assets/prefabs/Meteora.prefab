@@ -56,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: dcdc07a32ab4d5b4cbf8a4ed7b39b769, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6109046247095505466, guid: bf1d5de73b13b714597cc97d01ebd89f, type: 3}
+  m_Sprite: {fileID: -4612715788492429029, guid: 6da9257fdce23e74db41d0755b90fa82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 1217348082061777141}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f60c316e7eba52f43a39a639f308b3b2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7d41aaf63119e2f4e84ac519464066e6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -135,9 +135,9 @@ Transform:
   m_GameObject: {fileID: 3460394249042430808}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.48, y: 0.63, z: 0.48}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0.481, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.39375004, z: 0.3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4897530160326891330}
   m_Father: {fileID: 605278836236469575}
@@ -218,7 +218,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5482649810088149819, guid: 7a0613ea410657642812fbe5f53aa7c6, type: 3}
+  m_Sprite: {fileID: -765150924802650856, guid: 3461b20a55589b6459f6bf990072c48a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -324,6 +324,8 @@ MonoBehaviour:
   crack1Sprite: {fileID: 8153030496169914709, guid: 033fe180237219946b4d99695fdae1ad, type: 3}
   crack2Sprite: {fileID: -7112363265595704721, guid: 4a8be0771b8c90645af4d3dab47de974, type: 3}
   trail: {fileID: 4245044070887033490}
+  trailTurnSpeed: 10
+  trailMoveSpeed: 10
 --- !u!1 &8846698758973674278
 GameObject:
   m_ObjectHideFlags: 0
